@@ -62,9 +62,9 @@ public class EventDAO {
 			Date date = new Date();
 			
 			while(rs.next()){
-				if(rs.getString(2).compareTo(dateFormat.format(date))>=0){
+				if(rs.getString(4).compareTo(dateFormat.format(date))>=0){
 					events.add(new EventVO(rs.getString(1),rs.getString(2),rs.getString(3)
-						,rs.getString(4),rs.getString(5)));
+						,rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)));
 				}
 			}
 			return events;
@@ -78,18 +78,17 @@ public class EventDAO {
 		try {
 			
 			Statement s = c.createStatement();
-			ResultSet rs=s.executeQuery("select E.* from realizar R, evento E "
-					+ "where R.Evento_idevento=E.idevento AND R.banda_email=\""+b+"\";");
+			ResultSet rs=s.executeQuery("select * from evento "
+					+ "where bandaemail=\""+b+"\";");
 			List<EventVO> events=new ArrayList<EventVO>();
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
-			
 			while(rs.next()){
-//				if(rs.getString(2).compareTo(dateFormat.format(date))>=0){
+				if(rs.getString(4).compareTo(dateFormat.format(date))>=0){
 					events.add(new EventVO(rs.getString(1),rs.getString(2),rs.getString(3)
-						,rs.getString(4),rs.getString(5)));
-//				}
+						,rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)));
+				}
 			}
 			return events;
 		} catch (SQLException ex) {
