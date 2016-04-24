@@ -97,6 +97,19 @@ public class WebFachada{
 		}
 		
 	}
+	public BandVO buscarBanda(String email){
+		BandVO u = null;
+		try {
+			u = bandDAO.buscarBanda(email);
+		} catch (ErrorBandException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return u;
+	}
+	
+
 	/**
 	 * Función que se encarga de comprobar que usuarios de tipo banda estan 
 	 * relacionados con el usuario fan introducido.
@@ -134,11 +147,6 @@ public class WebFachada{
 	}
 	
 	
-	
-	
-	public List<BandVO> buscarBanda(String nombre){
-		return null;
-	}
 	
 	/**
 	 * Función que se encarga de actualiza en la BBDD el atributo información de la banda

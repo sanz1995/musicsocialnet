@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class Conexion {
 
-	private static String servidor = "jdbc:mysql://127.0.0.1:3306/webmusica";
+	private static String servidor = "jdbc:mysql://192.168.1.100:3306/webmusica";
 	private static String user = "root";
 	private static String pass = "root";
 	private static String driver = "com.mysql.jdbc.Driver";

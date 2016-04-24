@@ -79,7 +79,8 @@ public class RegisterBandServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("nombre", nombre);
 				session.setAttribute("generos", generosArray);
-				response.sendRedirect("home_band_wall.jsp");
+				session.setAttribute("home","home_band_info.jsp");
+				response.sendRedirect("home_band_info.jsp");
 			} catch (ErrorBandException e) {
 				response.sendRedirect("index.html");
 			}

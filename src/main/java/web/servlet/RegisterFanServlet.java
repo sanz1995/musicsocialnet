@@ -71,6 +71,7 @@ public class RegisterFanServlet extends HttpServlet {
 				request.setAttribute("errores", null);
 				HttpSession session = request.getSession();
 				session.setAttribute("nombre", nombre);
+				session.setAttribute("home","home_fan_concert.jsp");
 				response.sendRedirect("home_fan_concert.jsp");
 			} catch (ErrorFanException e) {
 				response.sendRedirect("index.html");
