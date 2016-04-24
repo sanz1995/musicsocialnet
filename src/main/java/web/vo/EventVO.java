@@ -14,19 +14,41 @@ public class EventVO {
 		this.id=id;
 		this.nombre=nombre;
 		this.banda=banda;
-		this.fecha=fecha;
+		this.fecha=formatearFecha(fecha);
 		this.lugar=lugar;
 		this.nasistentes=nasistentes;
-		this.hora=hora;
+		this.hora=formatearHora(hora);
 	}
 	
 	public EventVO(String nombre,String banda,String fecha, String lugar, String nasistentes,String hora) {
 		this.nombre=nombre;
 		this.banda=banda;
-		this.fecha=fecha;
+		this.fecha=formatearFecha(fecha);
 		this.lugar=lugar;
 		this.nasistentes=nasistentes;
-		this.hora=hora;
+		this.hora=formatearHora(hora);
+	}
+	
+	private String formatearFecha(String fecha){
+		String res = "";
+		
+		for (int i = 0; i<fecha.length();i++){
+			if(fecha.charAt(i)!='-'){
+				res += fecha.charAt(i);
+			}
+		}
+		return res;
+		
+	} 
+	private String formatearHora(String hora){
+		String res = "";
+		
+		for (int i = 0; i<hora.length();i++){
+			if(hora.charAt(i)!=':'){
+				res += hora.charAt(i);
+			}
+		}
+		return res;
 	}
 	
 	/**
@@ -59,7 +81,7 @@ public class EventVO {
 	 *  banda de este objeto evento.
 	 */
 	public String getBanda() {
-		return fecha;
+		return banda;
 	}
 	
 

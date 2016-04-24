@@ -121,20 +121,25 @@ public class WebFachada{
 		}
 		
 	}
-	public boolean asistir(String email, String id, boolean asistir){
-		if(asistir){
-			eventDAO.asistir(email, id);
-		}else{
-			eventDAO.dejarDeAsistir(email, id);
-		}
-		
-		return true;
-		
+	public void asistir(String email, String id){
+		eventDAO.asistir(email, id);
 	}
+	
+	public void dejarDeAsistir(String email, String id){
+		eventDAO.dejarDeAsistir(email, id);
+	}
+	
+	public void crearEvento(EventVO e){
+		eventDAO.crearEvento(e);
+	}
+	
+	
+	
 	
 	public List<BandVO> buscarBanda(String nombre){
 		return null;
 	}
+	
 	/**
 	 * Función que se encarga de actualiza en la BBDD el atributo información de la banda
 	 * introducida como segundo parámetro.

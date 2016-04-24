@@ -36,6 +36,21 @@ public class EventDAO {
 		}
 	}
 	
+	public void crearEvento(EventVO e) {
+		try {
+			//Conexion c = new Conexion();
+			//Connection conexion = c.getConnection();
+			Statement s = c.createStatement();
+			s.execute(
+					"INSERT INTO evento (nombreevento,bandaemail,fecha,lugar,nasistentes,hora)"
+					+ " VALUES ('" + e.getNombre() + "','" + e.getBanda() +
+					"'," + e.getFecha()  + ",'" + e.getLugar()  + "'," + e.getNumAsistentes()  
+					+ "," + e.getHora()  + ");");
+		} catch (SQLException ex) {
+			System.out.println("Error al insertar FAN" + ex.getMessage());
+		}
+	}
+	
 	public void dejarDeAsistir(String email, String id) {
 		try {
 			//Conexion c = new Conexion();
@@ -96,4 +111,5 @@ public class EventDAO {
 			return null;
 		}
 	}
+	
 }
