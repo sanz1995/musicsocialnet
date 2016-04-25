@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @WebServlet
 public class CreateEventServlet extends HttpServlet{
@@ -23,8 +26,8 @@ public class CreateEventServlet extends HttpServlet{
         String nombre = request.getParameter("nombreEvento");
         String banda = request.getParameter("banda");
         String lugar = request.getParameter("lugar");
-        String fecha = request.getParameter("fecha") + ":00";
-        String tiempo = request.getParameter("time");
+        String fecha = request.getParameter("fecha");
+        String tiempo = request.getParameter("time") + ":00";
 
         if ((nombre == null) || (nombre.trim().equals(""))) {
             errores.add("nombre");
@@ -37,6 +40,16 @@ public class CreateEventServlet extends HttpServlet{
         }
         if ((tiempo == null) || (tiempo.trim().equals(""))) {
             errores.add("tiempo");
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        if(fecha.compareTo(dateFormat.format(date)) < 0) {
+            errores.add("fecha");
+        }
+
+        if(fecha.contains("/")) {
+            errores.add("fecha");
         }
 
         if (errores.isEmpty()) {
