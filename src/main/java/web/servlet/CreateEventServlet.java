@@ -23,7 +23,7 @@ public class CreateEventServlet extends HttpServlet{
         String nombre = request.getParameter("nombreEvento");
         String banda = request.getParameter("banda");
         String lugar = request.getParameter("lugar");
-        String fecha = request.getParameter("fecha");
+        String fecha = request.getParameter("fecha") + ":00";
         String tiempo = request.getParameter("time");
 
         if ((nombre == null) || (nombre.trim().equals(""))) {
@@ -43,7 +43,6 @@ public class CreateEventServlet extends HttpServlet{
             EventVO evento = new EventVO(nombre, banda, fecha, lugar, "0", tiempo);
             WebFachada model = WebFachada.getWebFachada();
             model.crearEvento(evento);
-            HttpSession session = request.getSession();
             request.setAttribute("errores", null);
             response.sendRedirect("home_band_event.jsp");
         } else {
