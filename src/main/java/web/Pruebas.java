@@ -23,7 +23,8 @@ public class Pruebas {
 			System.out.println(e.getNombre());
 			System.out.println(e.getFecha());
 			System.out.println(e.getHora());
-			w.crearEvento(e);
+			//w.crearEvento(e);
+			System.out.println(w.asiste("jorge.sanz.alcaine@gmail.com", "3"));
 			//System.out.println(u);
 		} catch (LoginException e) {
 			// TODO Auto-generated catch block

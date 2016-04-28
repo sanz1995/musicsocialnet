@@ -28,6 +28,7 @@ public class CreateEventServlet extends HttpServlet{
         String lugar = request.getParameter("lugar");
         String fecha = request.getParameter("fecha");
         String tiempo = request.getParameter("time") + ":00";
+        
 
         if ((nombre == null) || (nombre.trim().equals(""))) {
             errores.add("nombre");

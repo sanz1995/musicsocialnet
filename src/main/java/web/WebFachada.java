@@ -146,7 +146,9 @@ public class WebFachada{
 		eventDAO.crearEvento(e);
 	}
 	
-	
+	public boolean asiste(String email, String id){
+		return eventDAO.asiste(email, id);
+	}
 	
 	/**
 	 * Función que se encarga de actualiza en la BBDD el atributo información de la banda
@@ -158,4 +160,6 @@ public class WebFachada{
 	public void updateInfoBand(String emailBanda, String info) throws ErrorBandException{
 		bandDAO.updateInfo(emailBanda, info);
 	}
+	
+
 }

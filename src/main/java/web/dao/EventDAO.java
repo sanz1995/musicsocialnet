@@ -29,8 +29,7 @@ public class EventDAO {
 			//Conexion c = new Conexion();
 			//Connection conexion = c.getConnection();
 			Statement s = c.createStatement();
-			s.execute(
-					"INSERT INTO `asistir` VALUES ('" + email + "','" + id + "');");
+			s.execute("INSERT INTO `asistir` VALUES ('" + email + "','" + id + "');");
 		} catch (SQLException ex) {
 			System.out.println("Error al insertar FAN" + ex.getMessage());
 		}
@@ -70,7 +69,7 @@ public class EventDAO {
 			
 			Statement s = c.createStatement();
 			ResultSet rs=s.executeQuery("select E.* from asistir A, evento E "
-					+ "where A.evento_idevento=E.idevento AND A.fan_email=\""+u+"\";");
+					+ "where A.evento_idevento=E.idevento AND A.fan_email=\""+u+"\" order by E.fecha;");
 			List<EventVO> events=new ArrayList<EventVO>();
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -91,10 +90,9 @@ public class EventDAO {
 	
 	public List<EventVO> showBandEvents(String b) {
 		try {
-			
 			Statement s = c.createStatement();
 			ResultSet rs=s.executeQuery("select * from evento "
-					+ "where bandaemail=\""+b+"\";");
+					+ "where bandaemail=\""+b+"\" order by fecha;");
 			List<EventVO> events=new ArrayList<EventVO>();
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -111,5 +109,17 @@ public class EventDAO {
 			return null;
 		}
 	}
-	
+	public boolean asiste(String email,String id){
+		try {
+			Statement s = c.createStatement();
+			ResultSet rs=s.executeQuery("select * from asistir "
+					+ "where evento_idevento="+id+" AND fan_email=\""+email+"\";");
+			
+			return rs.next();
+		} catch (SQLException ex) {
+			System.out.println("SQLException " + ex.getMessage());
+			return false;
+		}
+	}
+		
 }
