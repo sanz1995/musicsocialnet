@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import web.vo.*;
 import web.exception.*;
@@ -199,6 +200,26 @@ public class BandDAO {
 		} catch (SQLException ex) {
 			System.out.println("Error SQL al actualizar info banda");
 			throw new ErrorBandException();
+		}
+	}
+	
+	public List<BandVO> search(String keyWord){
+		try {
+			/*Conexion c = new Conexion();
+			Connection conexion = c.getConnection();*/
+			Statement s = c.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM banda WHERE UPPER(nombre) LIKE UPPER('%"+keyWord+"%')");
+			List<BandVO> bands=new ArrayList<BandVO>();
+			while(rs.next()){
+				bands.add(new BandVO(rs.getString(1),rs.getString(2),rs.getString(3)
+						,rs.getString(4),rs.getString(5)));
+			}
+			rs.close();
+			//conexion.close();
+			return bands; 
+		} catch (SQLException ex) {
+			System.out.println("Error al comprobar los generos");
+			return null;
 		}
 	}
 }

@@ -1,8 +1,11 @@
 package web;
 
+import java.util.List;
+
 import web.exception.ErrorBandException;
 import web.exception.ErrorFanException;
 import web.exception.LoginException;
+import web.vo.BandVO;
 import web.vo.EventVO;
 import web.vo.UserVO;
 
@@ -10,8 +13,8 @@ public class Pruebas {
 
 	public static void main(String[] args){
 		WebFachada w = WebFachada.getWebFachada();
-		try {
-			UserVO u = w.iniciarSesion("green.day@gmail.com", "green day");
+		//try {
+			/**UserVO u = w.iniciarSesion("green.day@gmail.com", "green day");
 			w.proximosEventos(u);
 			for(EventVO e : w.proximosEventos(u)){
 				System.out.println(e.getNombre());
@@ -26,7 +29,15 @@ public class Pruebas {
 			//w.crearEvento(e);
 			System.out.println(w.asiste("jorge.sanz.alcaine@gmail.com", "3"));
 			//System.out.println(u);
-		} catch (LoginException e) {
+			 * */
+			//w.dejarDeSeguir("jorge.sanz.alcaine@gmail.com",  "foo.fighters@gmail.com");
+			List<BandVO>  l = w.search("e");
+			for(BandVO e : l){
+				System.out.println(e.getNombre());
+			}
+			
+			
+		/**}catch (LoginException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ErrorFanException e) {
@@ -35,6 +46,6 @@ public class Pruebas {
 		} catch (ErrorBandException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 }

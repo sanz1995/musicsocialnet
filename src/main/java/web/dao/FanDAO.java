@@ -48,6 +48,48 @@ public class FanDAO {
 			System.out.println("Error al insertar FAN" + ex.getMessage());
 		}
 	}
+	
+	
+	/**
+	 * Función que se encarga de insertar los datos de un fan en la BBDD 
+	 * en la tabla "fan". 
+	 * Si no puede insertarlos lanza una excepción.
+	 * 
+	 * @param f Objeto de tipo FanVO que contiene la información de un usuario
+	 * de tipo fan que se ha de almacenar en la BBDD.
+	 */
+	public void seguir(String fan,String band) {
+		try {
+			//Conexion c = new Conexion();
+			//Connection conexion = c.getConnection();
+			Statement s = c.createStatement();
+			s.execute("INSERT INTO seguir VALUES ('" + fan + "','" + band + "');");
+		} catch (SQLException ex) {
+			System.out.println("Error al insertar FAN" + ex.getMessage());
+		}
+	}
+	
+	/**
+	 * Función que se encarga de insertar los datos de un fan en la BBDD 
+	 * en la tabla "fan". 
+	 * Si no puede insertarlos lanza una excepción.
+	 * 
+	 * @param f Objeto de tipo FanVO que contiene la información de un usuario
+	 * de tipo fan que se ha de almacenar en la BBDD.
+	 */
+	public void dejarDeSeguir(String fan,String band) {
+		try {
+			//Conexion c = new Conexion();
+			//Connection conexion = c.getConnection();
+			Statement s = c.createStatement();
+			s.execute("DELETE FROM seguir where fan_email='" + fan + "' AND banda_email='" + band + "';");
+		} catch (SQLException ex) {
+			System.out.println("Error al insertar FAN" + ex.getMessage());
+		}
+	}
+	
+	
+	
 	/**
 	 * Función que se encarga de comprobar si el email del fan introducido
 	 * por parametros se encuentra almacenado en la BBDD.

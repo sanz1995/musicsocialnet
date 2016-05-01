@@ -119,8 +119,8 @@ public class WebFachada{
 	 * @return Lista con los usuarios de tipo banda encapsulados en el objeto 
 	 * BandVO que se relacionan con el usuario introducido.
 	 */
-	public List<BandVO> siguiendoA(FanVO fan){
-		return fanDAO.showUserBands(fan.getEmail());
+	public List<BandVO> siguiendoA(String fan){
+		return fanDAO.showUserBands(fan);
 	}
 	public List<String> obtenerGeneros(){
 		return bandDAO.totalGeneros();
@@ -161,5 +161,16 @@ public class WebFachada{
 		bandDAO.updateInfo(emailBanda, info);
 	}
 	
+	public void seguir(String fan,String band){
+		fanDAO.seguir(fan, band);
+	}
+	
+	public void dejarDeSeguir(String fan,String band){
+		fanDAO.dejarDeSeguir(fan, band);
+	}
+	
+	public List<BandVO> search(String keyWord){
+		return bandDAO.search(keyWord);
+	}
 
 }
