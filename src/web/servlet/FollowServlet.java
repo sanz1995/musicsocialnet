@@ -1,38 +1,26 @@
 package web.servlet;
 
-
-import web.WebFachada;
-import web.vo.EventVO;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet
-public class AsistenciaServlet extends HttpServlet{
+public class FollowServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
  
-    	HttpSession session = request.getSession();
+    	//HttpSession session = request.getSession();
 
-        String email = (String) session.getAttribute("email");
+       // String fan = (String) session.getAttribute("email");    
+	//	 String banda = request.getParameter("banda");
+
         
-        String id = request.getParameter("id");
-        String asistir = request.getParameter("asistir");
-        String direccion = request.getParameter("direccion");
-        
-        WebFachada w = WebFachada.getWebFachada();
-        if (asistir.equals("TRUE")){
-        	w.asistir(email, id);
-        }else{
-        	w.dejarDeAsistir(email, id);
-        }
+        //WebFachada w = WebFachada.getWebFachada();
+        //w.seguirBanda(banda, fan);
         response.sendRedirect("home_fan_concert.jsp");
     }
 
