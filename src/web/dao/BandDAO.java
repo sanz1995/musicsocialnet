@@ -184,7 +184,7 @@ public class BandDAO {
 	}
 
 	/**
-	 * FunciÃ³n que se encarga de actualiza en la BBDD el atributo informaciÃ³n de la banda
+	 * Función que se encarga de actualiza en la BBDD el atributo información de la banda
 	 * introducida como segundo parÃ¡metro.
 	 *  
 	 * @param email Cadena de caracteres que representa el email que identifica a una banda
@@ -203,10 +203,15 @@ public class BandDAO {
 		}
 	}
 	
+	/**
+	 * Función que se encarga de hacer una búsqueda en la BBDD sobre las bandas que cumplen
+	 * con la keyWord introducida como parámetro.
+	 *  
+	 * @param keyWord Cadena de caracteres que representa el nombre de la banda introducido en la búsqueda
+	 * @return Lista de objetos de tipo Banda con las bandas obtenidas como respuesta a la query
+	 */
 	public List<BandVO> search(String keyWord){
 		try {
-			/*Conexion c = new Conexion();
-			Connection conexion = c.getConnection();*/
 			Statement s = c.createStatement();
 			ResultSet rs;
 			if (keyWord == null)
@@ -219,10 +224,9 @@ public class BandDAO {
 						,rs.getString(4),getGeneros(rs.getString(4)),rs.getString(5)));
 			}
 			rs.close();
-			//conexion.close();
 			return bands; 
 		} catch (SQLException ex) {
-			System.out.println("Error al comprobar los generos");
+			System.out.println("Error al buscar bandas");
 			return null;
 		}
 	}

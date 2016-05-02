@@ -5,6 +5,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import web.WebFachada;
+
 import java.io.IOException;
 
 @WebServlet
@@ -12,25 +16,25 @@ public class FollowServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
- 
-    	//HttpSession session = request.getSession();
+    	HttpSession session = request.getSession();
 
-       // String fan = (String) session.getAttribute("email");    
-	//	 String banda = request.getParameter("banda");
+        String fan = (String) session.getAttribute("email");    
+        String banda = request.getParameter("banda");
+        boolean seguir = Boolean.parseBoolean(request.getParameter("follow"));
 
+        WebFachada w = WebFachada.getWebFachada();
+        w.seguirBanda(banda, fan,seguir);
         
-        //WebFachada w = WebFachada.getWebFachada();
-        //w.seguirBanda(banda, fan);
-        response.sendRedirect("home_fan_concert.jsp");
+        response.sendRedirect("home_fan_groups.jsp");
     }
 
     /**
-     * Funci贸n que se encarga de llamar a la funci贸n doPost de esta clase
+     * Funci髇 que se encarga de llamar a la funci髇 doPost de esta clase
      * y realizar las comprobaciones y pertinentes a los datos enviados en
-     * la petici贸n y devolver las respuestas, al igual que se hace con una
-     * petici贸n de tipo post.
+     * la petici髇 y devolver las respuestas, al igual que se hace con una
+     * petici髇 de tipo post.
      *
-     * @param  request Objeto que provee informaci贸n sobre la petici贸n del cliente al servlet.
+     * @param  request Objeto que provee informaci髇 sobre la petici髇 del cliente al servlet.
      * @param response Objeto que permite al servlet enviar una respuesta al cliente.
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

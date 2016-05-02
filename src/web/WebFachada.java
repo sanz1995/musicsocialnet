@@ -161,16 +161,18 @@ public class WebFachada{
 		bandDAO.updateInfo(emailBanda, info);
 	}
 	
-	public void seguir(String fan,String band){
-		fanDAO.seguir(fan, band);
-	}
-	
-	public void dejarDeSeguir(String fan,String band){
-		fanDAO.dejarDeSeguir(fan, band);
-	}
-	
 	public List<BandVO> search(String keyWord){
 		return bandDAO.search(keyWord);
 	}
-
+	
+	public void seguirBanda(String banda, String fan, boolean seguir){
+		if (seguir)
+			fanDAO.seguir(fan,banda);
+		else
+			fanDAO.dejarDeSeguir(fan, banda);
+	}
+	
+	public boolean sigue(String banda, String fan){
+		return fanDAO.sigue(fan, banda);
+	}
 }
