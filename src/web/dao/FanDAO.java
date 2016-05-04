@@ -89,11 +89,12 @@ public class FanDAO {
 	 */
 	public boolean sigue(String fan,String band){
 		try {
+			System.out.println("En SIGUE");
 			Statement s = c.createStatement();
-			ResultSet rs=s.executeQuery("SELECT * from SEGUIR WHERE"
-					+ "fan_email='" + fan + "' AND banda_email='" + band + "';");
-			
+			ResultSet rs=s.executeQuery("SELECT fan_email from seguir WHERE fan_email='" + fan + "' AND banda_email='" + band + "';");
+			System.out.println(rs);
 			while (rs.next()) {
+				System.out.println("FAN: "+rs.getString("fan_email"));
 				if (rs.getString("fan_email") != null){
 					rs.close();
 					return true;
