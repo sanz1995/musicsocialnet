@@ -37,13 +37,13 @@ public class UpdateBandServlet extends HttpServlet {
             if ((nombre == null) || (nombre.trim().equals(""))) {
                 errores.add("nombre");
             }
-            if (passwordA != null && (!passwordA.trim().equals("")) && !user.getPassword().equals(passwordA)){
+            if (passwordA != null && !passwordA.trim().equals("") && !user.getPassword().equals(passwordA)){
                 errores.add("clave");
             }
-            if ((passwordA == null || passwordA.trim().equals("")) && (password != null || !password.trim().equals(""))) {
+            if ((passwordA == null || passwordA.trim().equals("")) && password != null && !password.trim().equals("")) {
                 errores.add("noclave");
             }
-            if ((passwordA != null || !passwordA.trim().equals("")) && (password == null || password.trim().equals(""))) {
+            if (passwordA != null && !passwordA.trim().equals("") && (password == null || password.trim().equals(""))) {
                 errores.add("password");
             }
             if (!errores.contains("password") && (!repassword.equals(password))) {

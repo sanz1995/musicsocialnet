@@ -12,10 +12,10 @@ import web.Conexion;
 import web.exception.*;
 
 /**
- * Clase que implementa un patrón de acceso a BBDD de tipo Table Data Gateway,
+ * Clase que implementa un patrï¿½n de acceso a BBDD de tipo Table Data Gateway,
  * en este caso, para la tabla de la BBDD que almacena los datos de un usuario
- * de tipo banda. También implementan un Singleton, permitiendose una sola instancia
- * de esta clase en ejecución.
+ * de tipo banda. Tambiï¿½n implementan un Singleton, permitiendose una sola instancia
+ * de esta clase en ejecuciï¿½n.
  */
 public class BandDAO{
 
@@ -36,12 +36,12 @@ public class BandDAO{
 	}
 
 	/**
-	 * Función que se encarga de insertar los datos de una banda en la BBDD, incluidos los
+	 * Funciï¿½n que se encarga de insertar los datos de una banda en la BBDD, incluidos los
 	 * datos que se almacenan en la tabla banda y los de la tabla pertenece que indica los generos
 	 * musicales que interpreta este usuario banda.
-	 * Si no puede insertarlos lanza una excepción.
+	 * Si no puede insertarlos lanza una excepciï¿½n.
 	 * 
-	 * @param b Objeto de tipo BandVO que contiene la información de un usuario
+	 * @param b Objeto de tipo BandVO que contiene la informaciï¿½n de un usuario
 	 * de tipo banda que se ha de almacenar en la BBDD.
 	 */
 	
@@ -64,13 +64,13 @@ public class BandDAO{
 	}
 
 	/**
-	 * Función que se encarga de comprobar si el email de la banda introducido
+	 * Funciï¿½n que se encarga de comprobar si el email de la banda introducido
 	 * por parametros se encuentra almacenado en la BBDD.
 	 * 
 	 * @param email Cadena de caracteres que identifica al usuario de tipo 
 	 * banda a comprobar.
 	 * @return Variable booleana con valor true si la banda indicada se encuentra
-	 * en la BBDD y false si no está almacenada en esta.
+	 * en la BBDD y false si no estï¿½ almacenada en esta.
 	 */
 	public boolean existeBanda(String email){
 		try {
@@ -91,8 +91,8 @@ public class BandDAO{
 	}
 
 	/**
-	 * Función que se encarga de realizar la query a la base de datos que 
-	 * permite obtener todos los generos músicales almacenados en esta.
+	 * Funciï¿½n que se encarga de realizar la query a la base de datos que 
+	 * permite obtener todos los generos mï¿½sicales almacenados en esta.
 	 * 
 	 * @return Lista con los generos musicales almacenado en la tabla de la
 	 * base de datos "genero".
@@ -114,14 +114,14 @@ public class BandDAO{
 	}	
 
 	/**
-	 * Función que se encarga de realizar la query a la base de datos que 
-	 * permite obtener todos los generos músicales que pertenecen a la banda indicada
-	 * como parámetro.
+	 * Funciï¿½n que se encarga de realizar la query a la base de datos que 
+	 * permite obtener todos los generos mï¿½sicales que pertenecen a la banda indicada
+	 * como parï¿½metro.
 	 * 
 	 * @param email Cadena de caracteres que identifica al usuario de tipo 
 	 * banda a comprobar.
 	 * @return Lista con los generos musicales almacenados en la tabla pertenecer con 
-	 * relación a la banda introducida por parámetros.
+	 * relaciï¿½n a la banda introducida por parï¿½metros.
 	 */
 	public ArrayList<String> getGeneros (String email) {
 		try {
@@ -141,15 +141,15 @@ public class BandDAO{
 
 
 	/**
-	 * Función que se encarga de buscar en la base de datos los datos del usuario de
-	 * tipo banda que se identifican a partir del email introducido como parámetro
-	 * en la función.
+	 * Funciï¿½n que se encarga de buscar en la base de datos los datos del usuario de
+	 * tipo banda que se identifican a partir del email introducido como parï¿½metro
+	 * en la funciï¿½n.
 	 * 
 	 * @param email Cadena de caracteres que identifica al usuario de tipo 
 	 * banda a buscar.
-	 * @return Objeto de tipo FanVO con toda la información almacenada sobre
+	 * @return Objeto de tipo FanVO con toda la informaciï¿½n almacenada sobre
 	 * un usuario de tipo banda en la tabla de la base de datos "banda" que se
-	 * identifica a partir del email introducido como parámetro.
+	 * identifica a partir del email introducido como parï¿½metro.
 	 */
 	public BandVO buscarBanda(String email) throws ErrorBandException{
 		try {
@@ -170,8 +170,8 @@ public class BandDAO{
 	}
 
 	/**
-	 * Función que se encarga de actualiza en la BBDD el atributo información 
-	 * de la banda introducida como segundo parámetro.
+	 * Funciï¿½n que se encarga de actualiza en la BBDD el atributo informaciï¿½n 
+	 * de la banda introducida como segundo parï¿½metro.
 	 *  
 	 * @param email Cadena de caracteres que representa el email que identifica a una banda
 	 * @param info Cadena de caracteres con la informaciÃ³n a actualizar en la BBDD sobre la banda
@@ -190,8 +190,8 @@ public class BandDAO{
 	}
 	
 	/**
-	 * Función que se encarga de hacer una búsqueda en la BBDD sobre las 
-	 * bandas que cumplen con la keyWord introducida como parámetro.
+	 * Funciï¿½n que se encarga de hacer una bï¿½squeda en la BBDD sobre las 
+	 * bandas que cumplen con la keyWord introducida como parï¿½metro.
 	 *  
 	 * @param keyWord Cadena de caracteres que representa el nombre de la banda introducido en la bï¿½squeda
 	 * @return Lista de objetos de tipo Banda con las bandas obtenidas como respuesta a la query
@@ -218,26 +218,26 @@ public class BandDAO{
 	}
 	
 	/**
-	 * Función que se encarga de hacer actualizar en la tabla de la BBDD que almacena
-	 * las banda la información introducida en el parámetro "band" y de actualizar en
-	 * la tabla "pertenecer" que géneros musicales se relacionan con la banda. 
+	 * Funciï¿½n que se encarga de hacer actualizar en la tabla de la BBDD que almacena
+	 * las banda la informaciï¿½n introducida en el parï¿½metro "band" y de actualizar en
+	 * la tabla "pertenecer" que gï¿½neros musicales se relacionan con la banda. 
 	 *  
-	 * @param band Objeto de tipo VO que almacena la nueva información de la banda
+	 * @param band Objeto de tipo VO que almacena la nueva informaciï¿½n de la banda
 	 */
 	public void updateBand(BandVO band) {
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
-					"UPDATE banda SET nombre='" + b.getNombre() + "', password='" + b.getPassword() + "' " +
-							"WHERE email='" + b.getEmail() + "';");
+					"UPDATE banda SET nombre='" + band.getNombre() + "', password='" + band.getPassword() + "' " +
+							"WHERE email='" + band.getEmail() + "';");
 
-			ArrayList<String> generos = b.getGeneros();
+			ArrayList<String> generos = band.getGeneros();
 			if (generos != null) {
 				s.execute(
-						"DELETE FROM pertenecer WHERE banda_email='" + b.getEmail() + "';");
+						"DELETE FROM pertenecer WHERE banda_email='" + band.getEmail() + "';");
 				for (String genero : generos) {
 					s.execute("INSERT INTO pertenecer (banda_email,genero_nombre)"
-							+ " VALUES ('" + b.getEmail() + "','" + genero + "');");
+							+ " VALUES ('" + band.getEmail() + "','" + genero + "');");
 				}
 			}
 		} catch (SQLException ex) {
