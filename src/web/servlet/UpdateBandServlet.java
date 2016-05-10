@@ -19,57 +19,76 @@ public class UpdateBandServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ArrayList<String> errores = new ArrayList<String>();
 
-        String nombre = request.getParameter("band");
-
-        String password = request.getParameter("paswd");
-        String repassword = request.getParameter("rpaswd");
-        String [] generos = request.getParameterValues("genero");
-
-        if ((nombre == null) || (nombre.trim().equals(""))) {
-            errores.add("nombre");
-        }
-        if ((password == null) || (password.trim().equals(""))) {
-            errores.add("password");
-        }
-        if ((repassword == null) || (repassword.trim().equals(""))) {
-            errores.add("rePassword");
-        }
-        if (!errores.contains("password") && (!repassword.equals(password))) {
-            errores.add("reclave");
-        }
-        if (generos == null || generos.length == 0 ) {
-            errores.add("genero1");
-        }
-        if (generos != null && generos.length > 3) {
-            errores.add("genero2");
-        }
-
-        if (errores.isEmpty()) {
-            ArrayList<String> generosArray = new ArrayList<String>();
-            for (int i = 0; i < generos.length; i++) {
-                generosArray.add(generos[i]);
-            }
-            BandDAO bandDAO = BandDAO.getDAO();
-                
+        try {
+            ArrayList<String> errores = new ArrayList<>();
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
-                //Pongo a null foto de perfil y descripción, no se pide en registro
-            BandVO banda = new BandVO(nombre, password, null, email, generosArray, null);
-            bandDAO.updateBand(banda);
-            request.setAttribute("errores", null);
 
-            session.setAttribute("nombre", nombre);
-            session.setAttribute("generos", generosArray);
-            session.setAttribute("home","home_band_info.jsp");
-            response.sendRedirect("home_band_info.jsp");
-                
-        } else {
-            request.setAttribute("nombre", nombre);
-            request.setAttribute("errores", errores);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("update_band.jsp");
-            dispatcher.forward(request, response);
+            String nombre = request.getParameter("band");
+            String passwordA = request.getParameter("paswdA");
+            String password = request.getParameter("paswd");
+            String repassword = request.getParameter("rpaswd");
+            String [] generos = request.getParameterValues("genero");
+
+            BandDAO bandDAO = BandDAO.getDAO();
+            BandVO user = bandDAO.buscarBanda(email);
+
+            if ((nombre == null) || (nombre.trim().equals(""))) {
+                errores.add("nombre");
+            }
+            if (passwordA != null && (!passwordA.trim().equals("")) && !user.getPassword().equals(passwordA)){
+                errores.add("clave");
+            }
+            if ((passwordA == null || passwordA.trim().equals("")) && (password != null || !password.trim().equals(""))) {
+                errores.add("noclave");
+            }
+            if ((passwordA != null || !passwordA.trim().equals("")) && (password == null || password.trim().equals(""))) {
+                errores.add("password");
+            }
+            if (!errores.contains("password") && (!repassword.equals(password))) {
+                errores.add("reclave");
+            }
+            if (generos != null && generos.length > 3) {
+                errores.add("genero2");
+            }
+
+            if (errores.isEmpty()) {
+                ArrayList<String> generosArray = new ArrayList<>();
+                if (generos == null || generos.length == 0 ) {
+                    generosArray = null;
+                } else {
+                    for (int i = 0; i < generos.length; i++) {
+                        generosArray.add(generos[i]);
+                    }
+                }
+                BandVO banda;
+                if (passwordA == null || passwordA.trim().equals("")) {
+                    banda = new BandVO(nombre, user.getPassword(), null, email, generosArray, null);
+                } else {
+                    banda = new BandVO(nombre, password, null, email, generosArray, null);
+                }
+
+                bandDAO.updateBand(banda);
+                if (generosArray == null) {
+                    generosArray = user.getGeneros();
+                }
+                request.setAttribute("errores", null);
+
+                session.setAttribute("email", email);
+                session.setAttribute("nombre", nombre);
+                session.setAttribute("generos", generosArray);
+                session.setAttribute("home","home_band_info.jsp");
+                response.sendRedirect("home_band_info.jsp");
+
+            } else {
+                request.setAttribute("nombre", nombre);
+                request.setAttribute("errores", errores);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("update_band.jsp");
+                dispatcher.forward(request, response);
+            }
+        } catch (ErrorBandException e) {
+            e.printStackTrace();
         }
     }
 

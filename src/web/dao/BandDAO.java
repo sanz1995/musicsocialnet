@@ -251,12 +251,14 @@ public class BandDAO{
 					"UPDATE banda SET nombre='" + b.getNombre() + "', password='" + b.getPassword() + "' " +
 							"WHERE email='" + b.getEmail() + "';");
 
-			s.execute(
-					"DELETE FROM pertenecer WHERE banda_email='" + b.getEmail() + "';");
 			ArrayList<String> generos = b.getGeneros();
-			for (String genero : generos) {
-				s.execute("INSERT INTO pertenecer (banda_email,genero_nombre)"
-						+ " VALUES ('" + b.getEmail() + "','" + genero + "');");
+			if (generos != null) {
+				s.execute(
+						"DELETE FROM pertenecer WHERE banda_email='" + b.getEmail() + "';");
+				for (String genero : generos) {
+					s.execute("INSERT INTO pertenecer (banda_email,genero_nombre)"
+							+ " VALUES ('" + b.getEmail() + "','" + genero + "');");
+				}
 			}
 		} catch (SQLException ex) {
 			System.out.println("Error al insertar BANDA" + ex.getMessage());
