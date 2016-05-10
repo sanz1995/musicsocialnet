@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Clase que se encarga de realizar la conexiÃ³n de las clases java con el
- * servior de base de datos mysql. 
+ * Clase que se encarga de realizar la conexión de las clases java con el
+ * servidor de base de datos mysql. 
  */
 public class Conexion {
 

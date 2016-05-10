@@ -1,6 +1,5 @@
 package web.dao;
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,9 +8,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import web.Conexion;
 import web.vo.EventVO;
+
+/**
+ * Clase que implementa un patrón de acceso a BBDD de tipo Table Data Gateway,
+ * en este caso, para la tabla de la BBDD que almacena los datos de un evento.
+ * También implementan un Singleton, permitiendose una sola instancia
+ * de esta clase en ejecución.
+ */
 
 public class EventDAO {
 
@@ -31,22 +36,16 @@ public class EventDAO {
 		}
 	}
 	
-	
-	public void asistir(String email, String id) {
-		try {
-			//Conexion c = new Conexion();
-			//Connection conexion = c.getConnection();
-			Statement s = c.getConnection().createStatement();
-			s.execute("INSERT INTO `asistir` VALUES ('" + email + "','" + id + "');");
-		} catch (SQLException ex) {
-			System.out.println("Error al insertar FAN" + ex.getMessage());
-		}
-	}
-	
+	/**
+	 * Función que se encarga de insertar los datos de un evento en la BBDD 
+	 * en la tabla "evento". 
+	 * Si no puede insertarlos lanza una excepción.
+	 * 
+	 * @param e Objeto de tipo EventVO que contiene la información de un evento
+	 *  que se ha de almacenar en la BBDD.
+	 */
 	public void crearEvento(EventVO e) {
 		try {
-			//Conexion c = new Conexion();
-			//Connection conexion = c.getConnection();
 			Statement s = c.getConnection().createStatement();
 			s.execute(
 					"INSERT INTO evento (nombreevento,bandaemail,fecha,lugar,nasistentes,hora)"
@@ -58,6 +57,34 @@ public class EventDAO {
 		}
 	}
 	
+	/**
+	 * Función que se encarga de indicar la asistencia de un fan a un evento en 
+	 * la BBDD. 
+	 * Si no puede insertarlo lanza una excepción.
+	 * 
+	 * @param email Cadena de caracteres que identifica al usuario de tipo 
+	 * fan a comprobar que va a asistir al evento.
+	 * @param id Cadena de caracteres que identifica al evento al que el fan quiere asistir.
+	 */
+	public void asistir(String email, String id) {
+		try {
+			Statement s = c.getConnection().createStatement();
+			s.execute("INSERT INTO `asistir` VALUES ('" + email + "','" + id + "');");
+		} catch (SQLException ex) {
+			System.out.println("Error al insertar FAN" + ex.getMessage());
+		}
+	}
+	
+	/**
+	 * Función que se encarga de indicar la eliminación de la asistencia de un fan
+	 * a un evento en la BBDD. 
+	 * Si no puede insertarlo lanza una excepción.
+	 * 
+	 * @param email Cadena de caracteres que identifica al usuario de tipo 
+	 * fan a comprobar que va a asistir al evento.
+	 * @param id Cadena de caracteres que identifica al evento al que el fan quiere
+	 * dejar de asistir.
+	 */
 	public void dejarDeAsistir(String email, String id) {
 		try {
 			//Conexion c = new Conexion();
@@ -70,6 +97,18 @@ public class EventDAO {
 		}
 	}
 	
+	/**
+	 * Función que se comprueba si el email del fan introducido como parámetro
+	 * ha indicado anteriormente y se ha almacenado en la BBDD que va a asistir
+	 * al evento indicado en id.
+	 * 
+	 * @param email Cadena de caracteres que identifica al usuario de tipo 
+	 * fan que se quiere comprobar si ya asiste al evento o no.
+	 * @param id Cadena de caracteres que identifica al evento al que el fan 
+	 * esta asistiendo o no
+	 * @return Booleano con valor true que indica que el fan habia indicado 
+	 * su asistencia al evento o a false si no lo habia indicado. 
+	 */
 	public boolean asiste(String email,String id){
 		try {
 			Statement s = c.getConnection().createStatement();
@@ -82,6 +121,16 @@ public class EventDAO {
 			return false;
 		}
 	}
+	
+	/**
+	 * Función que se busca los próximos eventos que tiene planeado realizar la banda
+	 * introducida como parámetros segun la tabla "evento" de la BBDD.
+	 * 
+	 * @param b Cadena de caracteres que identifica al usuario de tipo 
+	 * banda del que se quieren buscar sus próximos eventos.
+	 * @return Lista de objetos EventVO en los que se almacenan los eventos de la banda
+	 * introducida como parámetro. 
+	 */
 	public List<EventVO> proximosEventosBanda(String b) {
 		try {
 			Statement s = c.getConnection().createStatement();
@@ -103,6 +152,16 @@ public class EventDAO {
 			return null;
 		}
 	}
+	
+	/**
+	 * Función que se busca los próximos eventos que tiene indicado su asistencia
+	 * el fan introducido como parámetros segun la tabla "asistir" de la BBDD.
+	 * 
+	 * @param u Cadena de caracteres que identifica al usuario de tipo 
+	 * fan del que se quieren buscar sus próximos eventos.
+	 * @return Lista de objetos EventVO en los que se almacenan los eventos del fan
+	 * introducida como parámetro. 
+	 */
 	public List<EventVO> proximosEventosFan(String u) {
 		try {
 			
