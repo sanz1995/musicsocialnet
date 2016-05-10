@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import web.WebFachada;
+import web.dao.BandDAO;
 
 @WebServlet
 public class SearchServlet  extends HttpServlet{
@@ -18,19 +18,20 @@ public class SearchServlet  extends HttpServlet{
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
  		 String banda = request.getParameter("banda");
 
-        WebFachada w = WebFachada.getWebFachada();
+        //WebFachada w = WebFachada.getWebFachada();
+ 		BandDAO bandDAO = BandDAO.getDAO();
         HttpSession session = request.getSession();
-        session.setAttribute("bandas", w.search(banda));
+        session.setAttribute("bandas", bandDAO.search(banda));
         response.sendRedirect("search.jsp");
     }
 
     /**
-     * Función que se encarga de llamar a la función doPost de esta clase
+     * Funciï¿½n que se encarga de llamar a la funciï¿½n doPost de esta clase
      * y realizar las comprobaciones y pertinentes a los datos enviados en
-     * la petición y devolver las respuestas, al igual que se hace con una
-     * petición de tipo post.
+     * la peticiï¿½n y devolver las respuestas, al igual que se hace con una
+     * peticiï¿½n de tipo post.
      *
-     * @param  request Objeto que provee información sobre la petición del cliente al servlet.
+     * @param  request Objeto que provee informaciï¿½n sobre la peticiï¿½n del cliente al servlet.
      * @param response Objeto que permite al servlet enviar una respuesta al cliente.
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

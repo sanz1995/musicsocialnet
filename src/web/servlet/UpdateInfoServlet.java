@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import web.*;
+import web.dao.BandDAO;
 import web.exception.*;
 
 
@@ -40,8 +41,8 @@ public class UpdateInfoServlet extends HttpServlet {
 		//Actualizo información de la banda en la base de datos
 		HttpSession session = request.getSession(); //Obtengo la sesion abierta del usuario
 		try {
-			WebFachada model = WebFachada.getWebFachada();
-			model.updateInfoBand((String) session.getAttribute("email"), info);
+			BandDAO bandDAO = BandDAO.getDAO();
+			bandDAO.updateInfo((String) session.getAttribute("email"), info);
 			session.setAttribute("desc", info);
 			response.sendRedirect("home_band_info.jsp");
 		} catch (ErrorBandException e) {

@@ -1,6 +1,6 @@
 package web.servlet;
 
-import web.WebFachada;
+import web.dao.BandDAO;
 import web.exception.ErrorBandException;
 import web.vo.BandVO;
 
@@ -51,22 +51,20 @@ public class UpdateBandServlet extends HttpServlet {
             for (int i = 0; i < generos.length; i++) {
                 generosArray.add(generos[i]);
             }
-            try {
-                WebFachada model = WebFachada.getWebFachada();
-                HttpSession session = request.getSession();
-                String email = (String) session.getAttribute("email");
+            BandDAO bandDAO = BandDAO.getDAO();
+                
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
                 //Pongo a null foto de perfil y descripción, no se pide en registro
-                BandVO banda = new BandVO(nombre, password, null, email, generosArray, null);
-                model.updateBand(banda);
-                request.setAttribute("errores", null);
+            BandVO banda = new BandVO(nombre, password, null, email, generosArray, null);
+            bandDAO.updateBand(banda);
+            request.setAttribute("errores", null);
 
-                session.setAttribute("nombre", nombre);
-                session.setAttribute("generos", generosArray);
-                session.setAttribute("home","home_band_info.jsp");
-                response.sendRedirect("home_band_info.jsp");
-            } catch (ErrorBandException e) {
-                response.sendRedirect("index.html");
-            }
+            session.setAttribute("nombre", nombre);
+            session.setAttribute("generos", generosArray);
+            session.setAttribute("home","home_band_info.jsp");
+            response.sendRedirect("home_band_info.jsp");
+                
         } else {
             request.setAttribute("nombre", nombre);
             request.setAttribute("errores", errores);

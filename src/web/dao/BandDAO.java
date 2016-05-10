@@ -1,13 +1,17 @@
 package web.dao;
 
-import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import web.vo.*;
+import web.Conexion;
 import web.exception.*;
 
 /**
@@ -15,7 +19,7 @@ import web.exception.*;
  * en este caso, para la tabla de la BBDD que almacena los datos de un usuario
  * de tipo banda.
  */
-public class BandDAO {
+public class BandDAO{
 	/**
 	 * Función que se encarga de insertar los datos de una banda en la BBDD, incluidos los
 	 * datos que se almacenan en la tabla banda y los de la tabla pertenece que indica los generos
@@ -25,17 +29,26 @@ public class BandDAO {
 	 * @param b Objeto de tipo BandVO que contiene la información de un usuario
 	 * de tipo banda que se ha de almacenar en la BBDD.
 	 */
-	private Connection c;
 	
-	public BandDAO(Connection c){
-		this.c=c;
+	private static BandDAO bandDAO;
+	
+	private Conexion c;
+	
+	public BandDAO(){
+		c = Conexion.getConexion();
+		bandDAO = this;
+	}
+	public static BandDAO getDAO(){
+		if(bandDAO==null){
+			return new BandDAO();
+		}else{
+			return bandDAO;
+		}
 	}
 
 	public void addBand(BandVO b) {
 		try {
-			/*Conexion c = new Conexion();
-			Connection conexion = c.getConnection();*/
-			Statement s = c.createStatement();
+			Statement s = c.getConnection().createStatement();
 			s.execute(
 					"INSERT INTO `banda` (`nombre`,`password`,`fotoperfil`,`email`,`descripcion`)"
 							+ " VALUES ('" + b.getNombre() + "','" + b.getPassword() + "','"
@@ -67,7 +80,7 @@ public class BandDAO {
 		try {
 			/*Conexion c = new Conexion();
 			Connection conexion = c.getConnection();*/
-			Statement s = c.createStatement();
+			Statement s = c.getConnection().createStatement();
 			ResultSet rs = s.executeQuery("SELECT email FROM banda WHERE email='" + email + "'");
 			while (rs.next()) {
 				if (rs.getString("email") != null) {
@@ -99,7 +112,7 @@ public class BandDAO {
 		try {
 			/*Conexion c = new Conexion();
 			Connection conexion = c.getConnection();*/
-			Statement s = c.createStatement();
+			Statement s = c.getConnection().createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM genero");
 			ArrayList<String> generos = new ArrayList<String>();
 			while (rs.next()) {
@@ -129,7 +142,7 @@ public class BandDAO {
 		try {
 			/*Conexion c = new Conexion();
 			Connection conexion = c.getConnection();*/
-			Statement s = c.createStatement();
+			Statement s = c.getConnection().createStatement();
 			ResultSet rs = s.executeQuery("SELECT genero_nombre FROM banda, pertenecer WHERE email='"+email+"' AND email=banda_email");
 			ArrayList<String> generos = new ArrayList<String>();
 			while (rs.next()) {
@@ -163,7 +176,7 @@ public class BandDAO {
 		try {
 			/*Conexion c = new Conexion();
 			Connection conexion = c.getConnection();*/
-			Statement s = c.createStatement();
+			Statement s = c.getConnection().createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM banda WHERE email='" + email + "'");
 			BandVO res;
 			if (rs.next()) {
@@ -193,7 +206,7 @@ public class BandDAO {
 	public void updateInfo(String email, String info) throws ErrorBandException{
 		try {
 
-			Statement s = c.createStatement();
+			Statement s = c.getConnection().createStatement();
 			System.out.println("Email banda:  "+email);
 			System.out.println("Info banda:  "+info);
 			s.execute("UPDATE banda SET descripcion='"+info+"' WHERE email='" + email + "'");
@@ -212,7 +225,7 @@ public class BandDAO {
 	 */
 	public List<BandVO> search(String keyWord){
 		try {
-			Statement s = c.createStatement();
+			Statement s = c.getConnection().createStatement();
 			ResultSet rs;
 			if (keyWord == null)
 				rs = s.executeQuery("SELECT * FROM banda");
@@ -233,7 +246,7 @@ public class BandDAO {
 
 	public void updateBand(BandVO b) {
 		try {
-			Statement s = c.createStatement();
+			Statement s = c.getConnection().createStatement();
 			s.execute(
 					"UPDATE banda SET nombre='" + b.getNombre() + "', password='" + b.getPassword() + "' " +
 							"WHERE email='" + b.getEmail() + "';");
@@ -249,4 +262,5 @@ public class BandDAO {
 			System.out.println("Error al insertar BANDA" + ex.getMessage());
 		}
 	}
+	
 }

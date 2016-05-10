@@ -14,16 +14,32 @@ public class Conexion {
 	private static String user = "root";
 	private static String pass = "root";
 	private static String driver = "com.mysql.jdbc.Driver";
+	
 	private static Connection conexion;
-
-	public Conexion() throws SQLException, ClassNotFoundException {
-		Class.forName(driver); // Levanto el Driver
-		conexion = DriverManager.getConnection(servidor, user, pass); // Establezco
-																		// conexion
+	private static Conexion c;
+	
+	public Conexion(){
+		try {
+			Class.forName(driver);
+			conexion = DriverManager.getConnection(servidor, user, pass);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
-
-	public Connection getConnection() {
+	public static Conexion getConexion(){
+		if(c==null){
+			return new Conexion();
+		}else{
+			return c;
+		}
+	}
+	
+	public Connection getConnection(){
 		return conexion;
 	}
-
 }

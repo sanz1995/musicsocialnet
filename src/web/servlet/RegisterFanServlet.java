@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import web.WebFachada;
+import web.dao.FanDAO;
 import web.exception.ErrorFanException;
 import web.vo.FanVO;
 
@@ -66,8 +66,14 @@ public class RegisterFanServlet extends HttpServlet {
 			//Pongo a null foto de perfil, no se pide en registro
 			FanVO fan = new FanVO(nombre, password, null, email);
 			try {
-				WebFachada model = WebFachada.getWebFachada();
-				model.registrarFan(fan);
+				FanDAO fanDAO = FanDAO.getDAO();
+				//WebFachada model = WebFachada.getWebFachada();
+				if (!fanDAO.existeFan(fan.getEmail())) {
+					fanDAO.addFan(fan);
+				} else {
+					throw new ErrorFanException();
+				}
+				
 				request.setAttribute("errores", null);
 				HttpSession session = request.getSession();
 				session.setAttribute("nombre", nombre);

@@ -1,7 +1,8 @@
 package web.servlet;
 
 
-import web.WebFachada;
+import web.dao.EventDAO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,11 +25,12 @@ public class AsistenciaServlet extends HttpServlet{
         String asistir = request.getParameter("asistir");
         //String direccion = request.getParameter("direccion");
         
-        WebFachada w = WebFachada.getWebFachada();
+        //WebFachada w = WebFachada.getWebFachada();
+        EventDAO eventDAO = EventDAO.getDAO();
         if (asistir.equals("TRUE")){
-        	w.asistir(email, id);
+        	eventDAO.asistir(email, id);
         }else{
-        	w.dejarDeAsistir(email, id);
+        	eventDAO.dejarDeAsistir(email, id);
         }
         response.sendRedirect("home_fan_concert.jsp");
     }

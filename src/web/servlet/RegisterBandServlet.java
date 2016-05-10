@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import web.WebFachada;
+
+import web.dao.BandDAO;
 import web.exception.ErrorBandException;
 import web.vo.BandVO;
 
@@ -73,10 +74,18 @@ public class RegisterBandServlet extends HttpServlet {
 			//Pongo a null foto de perfil y descripción, no se pide en registro
 			BandVO banda = new BandVO(nombre, password, null, email, generosArray, null);
 			try {
-				WebFachada model = WebFachada.getWebFachada();
-				model.registrarBanda(banda);
+				BandDAO bandDAO = BandDAO.getDAO();
+				
+				if (!bandDAO.existeBanda(banda.getEmail())) {
+					bandDAO.addBand(banda);
+				} else {
+					throw new ErrorBandException();
+				}
+				
+				
 				request.setAttribute("errores", null);
 				HttpSession session = request.getSession();
+				session.setAttribute("email", email);
 				session.setAttribute("nombre", nombre);
 				session.setAttribute("generos", generosArray);
 				session.setAttribute("home","home_band_info.jsp");

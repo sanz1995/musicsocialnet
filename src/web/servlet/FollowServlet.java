@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import web.WebFachada;
+import web.dao.FanDAO;
 
 import java.io.IOException;
 
@@ -22,19 +22,23 @@ public class FollowServlet extends HttpServlet{
         String banda = request.getParameter("banda");
         boolean seguir = Boolean.parseBoolean(request.getParameter("follow"));
 
-        WebFachada w = WebFachada.getWebFachada();
-        w.seguirBanda(banda, fan,seguir);
+        FanDAO fanDAO = FanDAO.getDAO();
+        if(seguir){
+        	fanDAO.seguir(banda, fan);
+        }else{
+        	fanDAO.dejarDeSeguir(banda, fan);
+        }
         
         response.sendRedirect("home_fan_groups.jsp");
     }
 
     /**
-     * Función que se encarga de llamar a la función doPost de esta clase
+     * Funciï¿½n que se encarga de llamar a la funciï¿½n doPost de esta clase
      * y realizar las comprobaciones y pertinentes a los datos enviados en
-     * la petición y devolver las respuestas, al igual que se hace con una
-     * petición de tipo post.
+     * la peticiï¿½n y devolver las respuestas, al igual que se hace con una
+     * peticiï¿½n de tipo post.
      *
-     * @param  request Objeto que provee información sobre la petición del cliente al servlet.
+     * @param  request Objeto que provee informaciï¿½n sobre la peticiï¿½n del cliente al servlet.
      * @param response Objeto que permite al servlet enviar una respuesta al cliente.
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

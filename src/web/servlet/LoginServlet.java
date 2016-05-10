@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import web.*;
+import web.dao.BandDAO;
+import web.dao.FanDAO;
 import web.vo.*;
 import web.exception.*;
 
@@ -51,8 +53,19 @@ public class LoginServlet extends HttpServlet {
 		
 		if (errores.isEmpty()) {
 			try {
-				WebFachada w = WebFachada.getWebFachada();
-				UserVO user = w.iniciarSesion(email,password);
+				FanDAO fanDAO = FanDAO.getDAO();
+				BandDAO bandDAO = BandDAO.getDAO();
+
+				
+				UserVO user=fanDAO.buscarFan(email);
+				if(user==null){
+					user=bandDAO.buscarBanda(email);
+				}
+				if(!user.getPassword().equals(password)){
+					throw new LoginException();
+				}
+				
+				//UserVO user = w.iniciarSesion(email,password);
 				request.setAttribute("errores", null);
 				HttpSession session = request.getSession();
 				session.setAttribute("nombre", user.getNombre());

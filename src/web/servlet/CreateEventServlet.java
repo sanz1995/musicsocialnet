@@ -1,6 +1,6 @@
 package web.servlet;
 
-import web.WebFachada;
+import web.dao.EventDAO;
 import web.vo.EventVO;
 
 import javax.servlet.RequestDispatcher;
@@ -54,8 +54,8 @@ public class CreateEventServlet extends HttpServlet{
 
         if (errores.isEmpty()) {
             EventVO evento = new EventVO(nombre, banda, fecha, lugar, "0", tiempo);
-            WebFachada model = WebFachada.getWebFachada();
-            model.crearEvento(evento);
+            EventDAO eventDAO = EventDAO.getDAO();
+            eventDAO.crearEvento(evento);
             request.setAttribute("errores", null);
             response.sendRedirect("home_band_event.jsp");
         } else {
