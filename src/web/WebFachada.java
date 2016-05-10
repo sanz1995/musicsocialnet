@@ -175,4 +175,12 @@ public class WebFachada{
 	public boolean sigue(String banda, String fan){
 		return fanDAO.sigue(fan, banda);
 	}
+
+	public void updateBand (BandVO band) throws ErrorBandException{
+		if (bandDAO.existeBanda(band.getEmail())) {
+			bandDAO.updateBand(band);
+		} else {
+			throw new ErrorBandException();
+		}
+	}
 }

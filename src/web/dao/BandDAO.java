@@ -184,7 +184,7 @@ public class BandDAO {
 	}
 
 	/**
-	 * Función que se encarga de actualiza en la BBDD el atributo información de la banda
+	 * Funciï¿½n que se encarga de actualiza en la BBDD el atributo informaciï¿½n de la banda
 	 * introducida como segundo parÃ¡metro.
 	 *  
 	 * @param email Cadena de caracteres que representa el email que identifica a una banda
@@ -204,10 +204,10 @@ public class BandDAO {
 	}
 	
 	/**
-	 * Función que se encarga de hacer una búsqueda en la BBDD sobre las bandas que cumplen
-	 * con la keyWord introducida como parámetro.
+	 * Funciï¿½n que se encarga de hacer una bï¿½squeda en la BBDD sobre las bandas que cumplen
+	 * con la keyWord introducida como parï¿½metro.
 	 *  
-	 * @param keyWord Cadena de caracteres que representa el nombre de la banda introducido en la búsqueda
+	 * @param keyWord Cadena de caracteres que representa el nombre de la banda introducido en la bï¿½squeda
 	 * @return Lista de objetos de tipo Banda con las bandas obtenidas como respuesta a la query
 	 */
 	public List<BandVO> search(String keyWord){
@@ -228,6 +228,25 @@ public class BandDAO {
 		} catch (SQLException ex) {
 			System.out.println("Error al buscar bandas");
 			return null;
+		}
+	}
+
+	public void updateBand(BandVO b) {
+		try {
+			Statement s = c.createStatement();
+			s.execute(
+					"UPDATE banda SET nombre='" + b.getNombre() + "', password='" + b.getPassword() + "' " +
+							"WHERE email='" + b.getEmail() + "';");
+
+			s.execute(
+					"DELETE FROM pertenecer WHERE banda_email='" + b.getEmail() + "';");
+			ArrayList<String> generos = b.getGeneros();
+			for (String genero : generos) {
+				s.execute("INSERT INTO pertenecer (banda_email,genero_nombre)"
+						+ " VALUES ('" + b.getEmail() + "','" + genero + "');");
+			}
+		} catch (SQLException ex) {
+			System.out.println("Error al insertar BANDA" + ex.getMessage());
 		}
 	}
 }
