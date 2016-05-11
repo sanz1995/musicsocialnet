@@ -1,19 +1,11 @@
 package web.dao;
 
-import java.sql.Connection;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import web.Conexion;
-import web.exception.ErrorFanException;
 import web.vo.BandVO;
-import web.vo.EventVO;
 import web.vo.FanVO;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -193,11 +185,9 @@ public class FanDAO {
 		try {
 			Statement s = c.getConnection().createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM fan WHERE email=\"" + email + "\";");
-			FanVO res;
+			FanVO res = null;
 			if (rs.next()) {
 				res = new FanVO(rs.getString(1),rs.getString(2),rs.getString(3),email);
-			}else{
-				res=null;
 			}
 			rs.close();
 			return res;

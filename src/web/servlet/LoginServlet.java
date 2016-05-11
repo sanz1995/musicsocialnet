@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import web.*;
 import web.dao.BandDAO;
 import web.dao.FanDAO;
 import web.vo.*;
@@ -60,12 +58,15 @@ public class LoginServlet extends HttpServlet {
 				UserVO user=fanDAO.buscarFan(email);
 				if(user==null){
 					user=bandDAO.buscarBanda(email);
+					if(user==null){
+						throw new LoginException();
+					}
 				}
+		
 				if(!user.getPassword().equals(password)){
 					throw new LoginException();
 				}
 				
-				//UserVO user = w.iniciarSesion(email,password);
 				request.setAttribute("errores", null);
 				HttpSession session = request.getSession();
 				session.setAttribute("nombre", user.getNombre());
@@ -83,10 +84,10 @@ public class LoginServlet extends HttpServlet {
 					response.sendRedirect("home_band_info.jsp");
 				}
 			} catch (LoginException e) {
-				response.sendRedirect("index.html");
+				response.sendRedirect("index.jsp");
 			}
 			catch (ErrorBandException e) {
-				response.sendRedirect("index.html");
+				response.sendRedirect("index.jsp");
 			}
 		} else {
 			request.setAttribute("errores", errores);

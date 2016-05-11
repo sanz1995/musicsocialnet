@@ -24,9 +24,9 @@ public class FollowServlet extends HttpServlet{
 
         FanDAO fanDAO = FanDAO.getDAO();
         if(seguir){
-        	fanDAO.seguir(banda, fan);
+        	fanDAO.seguir(fan, banda);
         }else{
-        	fanDAO.dejarDeSeguir(banda, fan);
+        	fanDAO.dejarDeSeguir(fan, banda);
         }
         
         response.sendRedirect("home_fan_groups.jsp");

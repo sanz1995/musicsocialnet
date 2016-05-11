@@ -1,15 +1,13 @@
 package web.dao;
 
-
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import web.vo.*;
 import web.Conexion;
-import web.exception.*;
+import web.exception.ErrorBandException;
+import web.vo.BandVO;
 
 /**
  * Clase que implementa un patrï¿½n de acceso a BBDD de tipo Table Data Gateway,
@@ -193,17 +191,42 @@ public class BandDAO{
 	 * Funciï¿½n que se encarga de hacer una bï¿½squeda en la BBDD sobre las 
 	 * bandas que cumplen con la keyWord introducida como parï¿½metro.
 	 *  
-	 * @param keyWord Cadena de caracteres que representa el nombre de la banda introducido en la bï¿½squeda
+	 * @param keyWord Cadena de caracteres que representa el nombre de la banda introducido en la búsqueda
+	 * @param generos Cadena de caracteres que representa el nombre de la banda introducido en la búsqueda
 	 * @return Lista de objetos de tipo Banda con las bandas obtenidas como respuesta a la query
 	 */
-	public List<BandVO> search(String keyWord){
+	public List<BandVO> search(String keyWord, ArrayList<String> generos){
 		try {
 			Statement s = c.getConnection().createStatement();
 			ResultSet rs;
-			if (keyWord == null)
+			String query;
+			if (keyWord == null && (generos == null || generos.size()==0))
 				rs = s.executeQuery("SELECT * FROM banda");
-			else
+			else if (keyWord != null && (generos == null || generos.size()==0))
 				rs = s.executeQuery("SELECT * FROM banda WHERE UPPER(nombre) LIKE UPPER('%"+keyWord+"%')");
+			else if (keyWord != null && generos.size()>0){
+				query = "SELECT DISTINCT banda.* FROM banda, pertenecer WHERE email=banda_email AND (";
+				for(int i=0; i<generos.size();i++){
+					if(i!=generos.size()-1)
+						query+=" UPPER(genero_nombre) LIKE UPPER('%"+generos.get(i)+"%') OR";
+					else
+						query+=" UPPER(genero_nombre) LIKE UPPER('%"+generos.get(i)+"%'))";
+				}
+				System.out.println(query);
+				rs = s.executeQuery(query);
+			}
+			else{ //Se han inroducido keyword y generos por los que filtrar
+				query = "SELECT DISTINCT banda.* FROM banda, pertenecer WHERE email=banda_email AND UPPER(nombre) LIKE UPPER('%"+keyWord+"%') AND (";
+				for(int i=0; i<generos.size();i++){
+					if(i!=generos.size()-1)
+						query+=" UPPER(genero_nombre) LIKE UPPER('%"+generos.get(i)+"%') OR";
+					else
+						query+=" UPPER(genero_nombre) LIKE UPPER('%"+generos.get(i)+"%'))";
+				}
+				System.out.println(query);
+				rs = s.executeQuery(query);
+			}
+
 			List<BandVO> bands=new ArrayList<BandVO>();
 			while(rs.next()){
 				bands.add(new BandVO(rs.getString(1),rs.getString(2),rs.getString(3)
