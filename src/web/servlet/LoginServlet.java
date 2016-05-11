@@ -85,8 +85,9 @@ public class LoginServlet extends HttpServlet {
 				}
 			} catch (LoginException e) {
 				response.sendRedirect("index.jsp");
-			}
-			catch (ErrorBandException e) {
+			} catch (ErrorBandException e) {
+				response.sendRedirect("index.jsp");
+			} catch (ErrorFanException e) {
 				response.sendRedirect("index.jsp");
 			}
 		} else {

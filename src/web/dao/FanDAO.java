@@ -4,16 +4,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import web.Conexion;
+import web.exception.ErrorFanException;
 import web.vo.BandVO;
 import web.vo.FanVO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Clase que implementa un patrón de acceso a BBDD de tipo Table Data Gateway,
+ * Clase que implementa un patrï¿½n de acceso a BBDD de tipo Table Data Gateway,
  * en este caso, para la tabla de la BBDD que almacena los datos de un usuario
- * de tipo fan. También implementan un Singleton, permitiendose una sola instancia
- * de esta clase en ejecución.
+ * de tipo fan. Tambiï¿½n implementan un Singleton, permitiendose una sola instancia
+ * de esta clase en ejecuciï¿½n.
  */
 public class FanDAO {
 
@@ -34,11 +35,11 @@ public class FanDAO {
 	}
 	
 	/**
-	 * Función que se encarga de insertar los datos de un fan en la BBDD 
+	 * Funciï¿½n que se encarga de insertar los datos de un fan en la BBDD 
 	 * en la tabla "fan". 
-	 * Si no puede insertarlos lanza una excepción.
+	 * Si no puede insertarlos lanza una excepciï¿½n.
 	 * 
-	 * @param f Objeto de tipo FanVO que contiene la información de un usuario
+	 * @param f Objeto de tipo FanVO que contiene la informaciï¿½n de un usuario
 	 * de tipo fan que se ha de almacenar en la BBDD.
 	 */
 	public void addFan(FanVO f) {
@@ -55,8 +56,8 @@ public class FanDAO {
 	
 	
 	/**
-	 * Función que se encarga de insertar en la BBDD la relación de follow sobre 
-	 * la banda y el fansobre introducidos como parámetro.
+	 * Funciï¿½n que se encarga de insertar en la BBDD la relaciï¿½n de follow sobre 
+	 * la banda y el fansobre introducidos como parï¿½metro.
 	 * 
 	 * @param fan Cadena de caracteres que representa el nombre del fan seguidor
 	 * @param band Cadena de caracteres que representa el nombre de la banda a seguir
@@ -71,8 +72,8 @@ public class FanDAO {
 	}
 	
 	/**
-	 * Función que se encarga de insertar en la BBDD la relación de unfollow sobre 
-	 * la banda y el fansobre introducidos como parámetro.
+	 * Funciï¿½n que se encarga de insertar en la BBDD la relaciï¿½n de unfollow sobre 
+	 * la banda y el fansobre introducidos como parï¿½metro.
 	 *  
 	 * @param fan Cadena de caracteres que representa el nombre del fan seguidor
 	 * @param band Cadena de caracteres que representa el nombre de la banda a seguir
@@ -87,7 +88,7 @@ public class FanDAO {
 	}
 	
 	/**
-	 * Función que se encarga de verificar si el fan introducido como parámetro sigue
+	 * Funciï¿½n que se encarga de verificar si el fan introducido como parï¿½metro sigue
 	 * a la banda introducida o no en la BBDD.
 	 *  
 	 * @param fan Cadena de caracteres que representa el nombre del fan seguidor
@@ -115,13 +116,13 @@ public class FanDAO {
 	}	
 	
 	/**
-	 * Función que se encarga de comprobar si el email del fan introducido
+	 * Funciï¿½n que se encarga de comprobar si el email del fan introducido
 	 * por parametros se encuentra almacenado en la BBDD.
 	 * 
 	 * @param email Cadena de caracteres que identifica al usuario de tipo 
 	 * fan a comprobar.
 	 * @return Variable booleana con valor true si el fan indicado se encuentra
-	 * en la BBDD y false si no está almacenada en esta.
+	 * en la BBDD y false si no estï¿½ almacenada en esta.
 	 */
 	public boolean existeFan(String email){
 		try {
@@ -142,11 +143,11 @@ public class FanDAO {
 	}	
 	
 	/**
-	 * Función que se encarga de comprobar que usuarios de tipo banda son 
-	 * seguidos por el usuario fan introducido, es decir, tienen una relación
+	 * Funciï¿½n que se encarga de comprobar que usuarios de tipo banda son 
+	 * seguidos por el usuario fan introducido, es decir, tienen una relaciï¿½n
 	 * a traves de la tabla "seguir" en la base de datos.
 	 *  
-	 * @param user Cadena de carácteres que indica el email del fan sobre el
+	 * @param user Cadena de carï¿½cteres que indica el email del fan sobre el
 	 * que buscar las bandas seguidas por este.
 	 * @return Lista con los usuarios de tipo banda encapsulados en el objeto 
 	 * BandVO que se relacionan con el usuario introducido.
@@ -171,17 +172,17 @@ public class FanDAO {
 	
 	
 	/**
-	 * Función que se encarga de buscar en la base de datos los datos del usuario de
-	 * tipo fan que se identifican a partir del email introducido como parámetro
-	 * en la función.
+	 * Funciï¿½n que se encarga de buscar en la base de datos los datos del usuario de
+	 * tipo fan que se identifican a partir del email introducido como parï¿½metro
+	 * en la funciï¿½n.
 	 * 
 	 * @param email Cadena de caracteres que identifica al usuario de tipo 
 	 * fan a buscar.
-	 * @return Objeto de tipo FanVO con toda la información almacenada sobre
+	 * @return Objeto de tipo FanVO con toda la informaciï¿½n almacenada sobre
 	 * un usuario de tipo fan en la tabla de la base de datos "fan" que se
-	 * identifica a partir del email introducido como parámetro.
+	 * identifica a partir del email introducido como parï¿½metro.
 	 */
-	public FanVO buscarFan(String email){
+	public FanVO buscarFan(String email) throws ErrorFanException {
 		try {
 			Statement s = c.getConnection().createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM fan WHERE email=\"" + email + "\";");
@@ -194,6 +195,23 @@ public class FanDAO {
 		} catch (SQLException ex) {
 			System.out.println("Error al comprobar fan");
 			return null;
+		}
+	}
+
+	/**
+	 * FunciÃ³n que se encarga de hacer actualizar en la tabla de la BBDD que almacena
+	 * los fans la informaciÃ³n introducida en el parÃ¡metro "fan".
+	 *
+	 * @param fan Objeto de tipo VO que almacena la nueva informaciï¿½n de la banda
+	 */
+	public void updateFan(FanVO fan) {
+		try {
+			Statement s = c.getConnection().createStatement();
+			s.execute(
+					"UPDATE fan SET nombre='" + fan.getNombre() + "', password='" + fan.getPassword() + "' " +
+							"WHERE email='" + fan.getEmail() + "';");
+		} catch (SQLException ex) {
+			System.out.println("Error al insertar BANDA" + ex.getMessage());
 		}
 	}
 		
