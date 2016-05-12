@@ -204,7 +204,7 @@ public class BandDAO{
 				rs = s.executeQuery("SELECT * FROM banda");
 			else if (keyWord != null && (generos == null || generos.size()==0))
 				rs = s.executeQuery("SELECT * FROM banda WHERE UPPER(nombre) LIKE UPPER('%"+keyWord+"%')");
-			else if (keyWord != null && generos.size()>0){
+			else if (keyWord == null && generos.size()>0){
 				query = "SELECT DISTINCT banda.* FROM banda, pertenecer WHERE email=banda_email AND (";
 				for(int i=0; i<generos.size();i++){
 					if(i!=generos.size()-1)
@@ -215,7 +215,7 @@ public class BandDAO{
 				System.out.println(query);
 				rs = s.executeQuery(query);
 			}
-			else{ //Se han inroducido keyword y generos por los que filtrar
+			else{ //Se han introducido keyword y generos por los que filtrar
 				query = "SELECT DISTINCT banda.* FROM banda, pertenecer WHERE email=banda_email AND UPPER(nombre) LIKE UPPER('%"+keyWord+"%') AND (";
 				for(int i=0; i<generos.size();i++){
 					if(i!=generos.size()-1)
