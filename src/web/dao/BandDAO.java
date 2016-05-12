@@ -191,8 +191,8 @@ public class BandDAO{
 	 * Funciï¿½n que se encarga de hacer una bï¿½squeda en la BBDD sobre las 
 	 * bandas que cumplen con la keyWord introducida como parï¿½metro.
 	 *  
-	 * @param keyWord Cadena de caracteres que representa el nombre de la banda introducido en la búsqueda
-	 * @param generos Cadena de caracteres que representa el nombre de la banda introducido en la búsqueda
+	 * @param keyWord Cadena de caracteres que representa el nombre de la banda introducido en la bï¿½squeda
+	 * @param generos Cadena de caracteres que representa el nombre de la banda introducido en la bï¿½squeda
 	 * @return Lista de objetos de tipo Banda con las bandas obtenidas como respuesta a la query
 	 */
 	public List<BandVO> search(String keyWord, ArrayList<String> generos){
@@ -251,7 +251,7 @@ public class BandDAO{
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
-					"UPDATE banda SET nombre='" + band.getNombre() + "', password='" + band.getPassword() + "' " +
+					"UPDATE banda SET nombre='" + band.getNombre() + "', fotoperfil='" + band.getFotoPerfil() + "', password='" + band.getPassword() + "' " +
 							"WHERE email='" + band.getEmail() + "';");
 
 			ArrayList<String> generos = band.getGeneros();

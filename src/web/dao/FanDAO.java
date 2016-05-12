@@ -208,7 +208,7 @@ public class FanDAO {
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
-					"UPDATE fan SET nombre='" + fan.getNombre() + "', password='" + fan.getPassword() + "' " +
+					"UPDATE fan SET nombre='" + fan.getNombre()+ "', fotoperfil='" + fan.getFotoPerfil() + "', password='" + fan.getPassword() + "' " +
 							"WHERE email='" + fan.getEmail() + "';");
 		} catch (SQLException ex) {
 			System.out.println("Error al insertar BANDA" + ex.getMessage());

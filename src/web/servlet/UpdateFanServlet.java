@@ -26,6 +26,7 @@ public class UpdateFanServlet extends HttpServlet {
             String email = (String) session.getAttribute("email");
 
             String nombre = request.getParameter("fan");
+            String fotoPerfil = request.getParameter("fotoPerfil");
             String passwordA = request.getParameter("paswdA");
             String password = request.getParameter("paswd");
             String repassword = request.getParameter("rpaswd");
@@ -51,16 +52,21 @@ public class UpdateFanServlet extends HttpServlet {
 
             if (errores.isEmpty()) {
                 FanVO fan;
+                
+                if ((fotoPerfil == null) || (fotoPerfil.trim().equals(""))) {
+                	fotoPerfil=null;
+                }
+                
                 if (passwordA == null || passwordA.trim().equals("")) {
-                    fan = new FanVO(nombre, user.getPassword(), null, email);
+                    fan = new FanVO(nombre, user.getPassword(), fotoPerfil, email);
                 } else {
-                    fan = new FanVO(nombre, password, null, email);
+                    fan = new FanVO(nombre, password, fotoPerfil, email);
                 }
 
                 fanDAO.updateFan(fan);
                 request.setAttribute("errores", null);
-
                 session.setAttribute("email", email);
+                session.setAttribute("fotoPerfil", fotoPerfil);
                 session.setAttribute("nombre", nombre);
                 session.setAttribute("home","home_fan_concert.jsp");
                 response.sendRedirect("home_fan_concert.jsp");

@@ -26,6 +26,7 @@ public class UpdateBandServlet extends HttpServlet {
             String email = (String) session.getAttribute("email");
 
             String nombre = request.getParameter("band");
+            String fotoPerfil = request.getParameter("fotoPerfil");
             String passwordA = request.getParameter("paswdA");
             String password = request.getParameter("paswd");
             String repassword = request.getParameter("rpaswd");
@@ -63,10 +64,16 @@ public class UpdateBandServlet extends HttpServlet {
                     }
                 }
                 BandVO banda;
+            
+                if ((fotoPerfil == null) || (fotoPerfil.trim().equals(""))) {
+                	fotoPerfil=null;
+                }
+                
+                
                 if (passwordA == null || passwordA.trim().equals("")) {
-                    banda = new BandVO(nombre, user.getPassword(), null, email, generosArray, null);
+                    banda = new BandVO(nombre, user.getPassword(), fotoPerfil, email, generosArray, null);
                 } else {
-                    banda = new BandVO(nombre, password, null, email, generosArray, null);
+                    banda = new BandVO(nombre, password, fotoPerfil, email, generosArray, null);
                 }
 
                 bandDAO.updateBand(banda);
@@ -76,6 +83,7 @@ public class UpdateBandServlet extends HttpServlet {
                 request.setAttribute("errores", null);
 
                 session.setAttribute("email", email);
+                session.setAttribute("fotoPerfil", fotoPerfil);
                 session.setAttribute("nombre", nombre);
                 session.setAttribute("generos", generosArray);
                 session.setAttribute("home","home_band_info.jsp");

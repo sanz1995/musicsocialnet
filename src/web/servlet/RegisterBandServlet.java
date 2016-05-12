@@ -89,6 +89,7 @@ public class RegisterBandServlet extends HttpServlet {
 				session.setAttribute("nombre", nombre);
 				session.setAttribute("generos", generosArray);
 				session.setAttribute("home","home_band_info.jsp");
+				session.setAttribute("fotoPerfil", banda.getFotoPerfil());
 				response.sendRedirect("home_band_info.jsp");
 			} catch (ErrorBandException e) {
 				response.sendRedirect("index.html");

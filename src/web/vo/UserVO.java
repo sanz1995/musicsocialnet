@@ -79,7 +79,7 @@ public class UserVO {
 	 * la foto de perfil de la banda.
 	 */
 	public void setFotoPerfil(String fotoPerfil) {
-		this.fotoPerfil = nombre;
+		this.fotoPerfil = fotoPerfil;
 	}
 	
 	/**
