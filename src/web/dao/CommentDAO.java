@@ -36,7 +36,7 @@ public class CommentDAO {
 					+ "('" +com.getTexto() +"'," +com.getTime() + 
 					",'" + com.getUserEmail() +"','" + com.getBandEmail() + "')");
 		} catch (SQLException ex) {
-			System.out.println("Error al insertar FAN" + ex.getMessage());
+			System.out.println("Error al comentar" + ex.getMessage());
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class CommentDAO {
 			}
 			return l;
 		} catch (SQLException ex) {
-			System.out.println("Error al insertar FAN" + ex.getMessage());
+			System.out.println("Error al mostrar comentarios" + ex.getMessage());
 			return null;
 		}
 	}

@@ -67,7 +67,7 @@ public class FanDAO {
 			Statement s = c.getConnection().createStatement();
 			s.execute("INSERT INTO seguir VALUES ('" + fan + "','" + band + "');");
 		} catch (SQLException ex) {
-			System.out.println("Error al insertar FAN" + ex.getMessage());
+			System.out.println("Error al seguir a banda" + ex.getMessage());
 		}
 	}
 	
@@ -83,7 +83,7 @@ public class FanDAO {
 			Statement s = c.getConnection().createStatement();
 			s.execute("DELETE FROM seguir where fan_email='" + fan + "' AND banda_email='" + band + "';");
 		} catch (SQLException ex) {
-			System.out.println("Error al insertar FAN" + ex.getMessage());
+			System.out.println("Error al dejar de seguir a banda" + ex.getMessage());
 		}
 	}
 	
@@ -211,7 +211,7 @@ public class FanDAO {
 					"UPDATE fan SET nombre='" + fan.getNombre()+ "', fotoperfil='" + fan.getFotoPerfil() + "', password='" + fan.getPassword() + "' " +
 							"WHERE email='" + fan.getEmail() + "';");
 		} catch (SQLException ex) {
-			System.out.println("Error al insertar BANDA" + ex.getMessage());
+			System.out.println("Error al actualizar fan" + ex.getMessage());
 		}
 	}
 		
