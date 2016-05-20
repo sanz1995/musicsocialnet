@@ -72,7 +72,7 @@ public class RegisterBandServlet extends HttpServlet {
 				generosArray.add(generos[i]);
 			}
 			//Pongo a null foto de perfil y descripción, no se pide en registro
-			BandVO banda = new BandVO(nombre, password, null, email, generosArray, null);
+			BandVO banda = new BandVO(nombre, password, null, null, email, generosArray, null);
 			try {
 				BandDAO bandDAO = BandDAO.getDAO();
 				

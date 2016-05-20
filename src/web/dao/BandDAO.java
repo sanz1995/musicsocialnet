@@ -47,9 +47,9 @@ public class BandDAO{
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
-					"INSERT INTO `banda` (`nombre`,`password`,`fotoperfil`,`email`,`descripcion`)"
+					"INSERT INTO `banda` (`nombre`,`password`,`fotoperfil`,`canal`,`email`,`descripcion`)"
 							+ " VALUES ('" + b.getNombre() + "','" + b.getPassword() + "','"
-							+ b.getFotoPerfil() + "','" + b.getEmail() + "','" + b.getDescripcion() + "');");
+							+ b.getFotoPerfil() + "','" + b.getFotoPerfil() + "','" + b.getEmail() + "','" + b.getDescripcion() + "');");
 			
 			ArrayList<String> generos = b.getGeneros();
 			for (String genero : generos) {
@@ -155,7 +155,7 @@ public class BandDAO{
 			ResultSet rs = s.executeQuery("SELECT * FROM banda WHERE email='" + email + "'");
 			BandVO res;
 			if (rs.next()) {
-				res = new BandVO(rs.getString(1),rs.getString(2),rs.getString(3),email, getGeneros(email), rs.getString(5));
+				res = new BandVO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),email, getGeneros(email), rs.getString(6));
 			}else{
 				res=null;
 			}
@@ -203,7 +203,8 @@ public class BandDAO{
 			if (keyWord == null && (generos == null || generos.size()==0))
 				rs = s.executeQuery("SELECT * FROM banda");
 			else if (keyWord != null && (generos == null || generos.size()==0))
-				rs = s.executeQuery("SELECT * FROM banda WHERE UPPER(nombre) LIKE UPPER('%"+keyWord+"%')");
+				rs = s.executeQuery("SELECT * FROM banda WHERE UPPER(nombre) "
+						+ "LIKE UPPER('%"+keyWord+"%')");
 			else if (keyWord == null && generos.size()>0){
 				query = "SELECT DISTINCT banda.* FROM banda, pertenecer WHERE email=banda_email AND (";
 				for(int i=0; i<generos.size();i++){
@@ -216,7 +217,9 @@ public class BandDAO{
 				rs = s.executeQuery(query);
 			}
 			else{ //Se han introducido keyword y generos por los que filtrar
-				query = "SELECT DISTINCT banda.* FROM banda, pertenecer WHERE email=banda_email AND UPPER(nombre) LIKE UPPER('%"+keyWord+"%') AND (";
+				query = "SELECT DISTINCT banda.* FROM banda, pertenecer "
+						+ "WHERE email=banda_email AND UPPER(nombre) "
+						+ "LIKE UPPER('%"+keyWord+"%') AND (";
 				for(int i=0; i<generos.size();i++){
 					if(i!=generos.size()-1)
 						query+=" UPPER(genero_nombre) LIKE UPPER('%"+generos.get(i)+"%') OR";
@@ -230,7 +233,7 @@ public class BandDAO{
 			List<BandVO> bands=new ArrayList<BandVO>();
 			while(rs.next()){
 				bands.add(new BandVO(rs.getString(1),rs.getString(2),rs.getString(3)
-						,rs.getString(4),getGeneros(rs.getString(4)),rs.getString(5)));
+						,rs.getString(4),rs.getString(5),getGeneros(rs.getString(5)),rs.getString(6)));
 			}
 			rs.close();
 			return bands; 
@@ -251,7 +254,9 @@ public class BandDAO{
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
-					"UPDATE banda SET nombre='" + band.getNombre() + "', fotoperfil='" + band.getFotoPerfil() + "', password='" + band.getPassword() + "' " +
+					"UPDATE banda SET nombre='" + band.getNombre() + "', fotoperfil='" + 
+			band.getFotoPerfil() + "', canal='" + band.getCanal() + "', password='" +
+							band.getPassword() + "' " +
 							"WHERE email='" + band.getEmail() + "';");
 
 			ArrayList<String> generos = band.getGeneros();

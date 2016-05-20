@@ -10,7 +10,7 @@ public class BandVO extends UserVO{
 
 	protected ArrayList<String> generos;
 	protected String descripcion;
-	
+	protected String canal;
 	/**
 	 * Constructor por defecto
 	 */
@@ -21,10 +21,11 @@ public class BandVO extends UserVO{
 	 * Constructor a partir de los atributos que se permiten almacenar en la 
 	 * tabla que representa la entidad banda en la BBDD.
 	 */
-	public BandVO(String nombre, String password, String fotoPerfil, String email, String descripcion) {
+	public BandVO(String nombre, String password, String fotoPerfil, String canal, String email, String descripcion) {
 		super.nombre = nombre;
 		super.password = password;
 		super.fotoPerfil = fotoPerfil;
+		this.canal = canal;
 		super.email = email;
 		this.descripcion = descripcion;
 	}
@@ -35,10 +36,11 @@ public class BandVO extends UserVO{
 	 * mÃºsicales que la representan y se encuentran a partir de las tablas "pertenece"
 	 * y "generos" en la BBDD.
 	 */
-	public BandVO(String nombre, String password, String fotoPerfil, String email, ArrayList<String> generos, String descripcion) {
+	public BandVO(String nombre, String password, String fotoPerfil, String canal, String email, ArrayList<String> generos, String descripcion) {
 		super.nombre = nombre;
 		super.password = password;
 		super.fotoPerfil = fotoPerfil;
+		this.canal = canal;
 		super.email = email;
 		this.generos = generos;
 		this.descripcion = descripcion;
@@ -84,5 +86,25 @@ public class BandVO extends UserVO{
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	/**
+	 * Devuleve una cadena de carácteres con el atributo canal del objeto BandaVO.
+	 * 
+	 * @return Cadena de carácteres que representa la canal del objeto
+	 * BandaVO.
+	 */
+	public String getCanal() {
+		return canal;
+	}
+
+	/**
+	 * Modifica la cadena de carácteres del atributo canal del objeto BandaVO.
+	 * 
+	 * @param descripcion Cadena de carácteres que representa el nuevo canal del objeto
+	 * BandaVO.
+	 */
+	public void setCanal(String canal) {
+		this.canal = canal;
 	}
 }

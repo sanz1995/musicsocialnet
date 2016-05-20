@@ -66,7 +66,6 @@ public class LoginServlet extends HttpServlet {
 				if(!user.getPassword().equals(password)){
 					throw new LoginException();
 				}
-				
 				request.setAttribute("errores", null);
 				HttpSession session = request.getSession();
 				session.setAttribute("nombre", user.getNombre());
@@ -84,11 +83,14 @@ public class LoginServlet extends HttpServlet {
 					response.sendRedirect("home_band_info.jsp");
 				}
 			} catch (LoginException e) {
-				response.sendRedirect("index.jsp");
+				errores.add("noExiste");
+				request.setAttribute("errores", errores);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+				dispatcher.forward(request, response);
 			} catch (ErrorBandException e) {
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("login.jsp");
 			} catch (ErrorFanException e) {
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("login.jsp");
 			}
 		} else {
 			request.setAttribute("errores", errores);

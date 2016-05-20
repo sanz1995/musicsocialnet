@@ -40,6 +40,22 @@ public class Conexion {
 	}
 	
 	public Connection getConnection(){
-		return conexion;
+		try {
+			if(conexion == null){
+				Class.forName(driver);
+				conexion = DriverManager.getConnection(servidor, user, pass);
+				return conexion;
+			}else{
+				return conexion;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
