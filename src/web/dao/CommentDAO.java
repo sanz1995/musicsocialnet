@@ -28,13 +28,13 @@ public class CommentDAO {
 		}
 	}
 	
-	public void comentar(CommentVO com) {
+	public void comentar(String texto, String fecha, String fanEmail, String bandEmail) {
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute("INSERT INTO comentario "
 					+ "(texto,fecha,fan_email,banda_email) VALUES "
-					+ "('" +com.getTexto() +"'," +com.getTime() + 
-					",'" + com.getUserEmail() +"','" + com.getBandEmail() + "')");
+					+ "('" + texto +"'," + fecha + 
+					",'" + fanEmail +"','" + bandEmail + "')");
 		} catch (SQLException ex) {
 			System.out.println("Error al comentar" + ex.getMessage());
 		}

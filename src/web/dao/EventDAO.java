@@ -44,14 +44,14 @@ public class EventDAO {
 	 * @param e Objeto de tipo EventVO que contiene la información de un evento
 	 *  que se ha de almacenar en la BBDD.
 	 */
-	public void crearEvento(EventVO e) {
+	public void crearEvento(String nombre, String banda, String fecha, String lugar, String hora) {
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
 					"INSERT INTO evento (nombreevento,bandaemail,fecha,lugar,nasistentes,hora)"
-					+ " VALUES ('" + e.getNombre() + "','" + e.getBanda() +
-					"'," + e.getFecha()  + ",'" + e.getLugar()  + "'," + e.getNumAsistentes()  
-					+ "," + e.getHora()  + ");");
+					+ " VALUES ('" + nombre + "','" + banda +
+					"'," + fecha  + ",'" + lugar + "'," + 0  
+					+ "," + hora  + ");");
 		} catch (SQLException ex) {
 			System.out.println("Error al insertar FAN" + ex.getMessage());
 		}

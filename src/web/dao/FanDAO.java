@@ -42,13 +42,13 @@ public class FanDAO {
 	 * @param f Objeto de tipo FanVO que contiene la informaci�n de un usuario
 	 * de tipo fan que se ha de almacenar en la BBDD.
 	 */
-	public void addFan(FanVO f) {
+	public void addFan(String nombre, String password, String fotoPerfil, String email) {
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
 					"INSERT INTO `fan` (`nombre`,`password`,`fotoperfil`,`email`)"
-							+ " VALUES ('" + f.getNombre() + "','" + f.getPassword() + "','"
-							+ f.getFotoPerfil() + "','" + f.getEmail() + "');");
+							+ " VALUES ('" + nombre + "','" + password + "','"
+							+ fotoPerfil + "','" + email + "');");
 		} catch (SQLException ex) {
 			System.out.println("Error al insertar FAN" + ex.getMessage());
 		}
@@ -204,12 +204,12 @@ public class FanDAO {
 	 *
 	 * @param fan Objeto de tipo VO que almacena la nueva informaci�n de la banda
 	 */
-	public void updateFan(FanVO fan) {
+	public void updateFan(String nombre, String password, String fotoPerfil, String email) {
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
-					"UPDATE fan SET nombre='" + fan.getNombre()+ "', fotoperfil='" + fan.getFotoPerfil() + "', password='" + fan.getPassword() + "' " +
-							"WHERE email='" + fan.getEmail() + "';");
+					"UPDATE fan SET nombre='" + nombre + "', fotoperfil='" + fotoPerfil + "', password='" + password + "' " +
+							"WHERE email='" + email + "';");
 		} catch (SQLException ex) {
 			System.out.println("Error al actualizar fan" + ex.getMessage());
 		}

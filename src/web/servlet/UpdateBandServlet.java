@@ -2,7 +2,6 @@ package web.servlet;
 
 import web.dao.BandDAO;
 import web.exception.ErrorBandException;
-import web.vo.BandVO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,12 +33,11 @@ public class UpdateBandServlet extends HttpServlet {
             String [] generos = request.getParameterValues("genero");
 
             BandDAO bandDAO = BandDAO.getDAO();
-            BandVO user = bandDAO.buscarBanda(email);
 
             if ((nombre == null) || (nombre.trim().equals(""))) {
                 errores.add("nombre");
             }
-            if (passwordA != null && !passwordA.trim().equals("") && !user.getPassword().equals(passwordA)){
+            if (passwordA != null && !passwordA.trim().equals("") && !bandDAO.buscarBanda(email).getPassword().equals(passwordA)){
                 errores.add("clave");
             }
             if ((passwordA == null || passwordA.trim().equals("")) && password != null && !password.trim().equals("")) {
@@ -64,7 +62,6 @@ public class UpdateBandServlet extends HttpServlet {
                         generosArray.add(generos[i]);
                     }
                 }
-                BandVO banda;
             
                 if ((fotoPerfil == null) || (fotoPerfil.trim().equals(""))) {
                 	fotoPerfil=null;
@@ -74,14 +71,14 @@ public class UpdateBandServlet extends HttpServlet {
                 }
                 
                 if (passwordA == null || passwordA.trim().equals("")) {
-                    banda = new BandVO(nombre, user.getPassword(), fotoPerfil,canal, email, generosArray, null);
-                } else {
-                    banda = new BandVO(nombre, password, fotoPerfil,canal, email, generosArray, null);
-                }
+                    bandDAO.updateBand(nombre, bandDAO.buscarBanda(email).getPassword(), fotoPerfil,canal, email, generosArray);
 
-                bandDAO.updateBand(banda);
+                } else {
+                    bandDAO.updateBand(nombre, password, fotoPerfil,canal, email, generosArray);
+
+                }
                 if (generosArray == null) {
-                    generosArray = user.getGeneros();
+                    generosArray = bandDAO.buscarBanda(email).getGeneros();
                 }
                 request.setAttribute("errores", null);
 

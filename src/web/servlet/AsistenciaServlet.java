@@ -23,9 +23,7 @@ public class AsistenciaServlet extends HttpServlet{
         
         String id = request.getParameter("id");
         String asistir = request.getParameter("asistir");
-        //String direccion = request.getParameter("direccion");
-        
-        //WebFachada w = WebFachada.getWebFachada();
+
         EventDAO eventDAO = EventDAO.getDAO();
         if (asistir.equals("TRUE")){
         	eventDAO.asistir(email, id);

@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import web.dao.BandDAO;
 import web.exception.ErrorBandException;
-import web.vo.BandVO;
 
 /**
  * Clase servlet que se encarga de gestionar la interacción entre la interfaz
@@ -71,13 +69,12 @@ public class RegisterBandServlet extends HttpServlet {
 			for (int i = 0; i < generos.length; i++) {
 				generosArray.add(generos[i]);
 			}
-			//Pongo a null foto de perfil y descripción, no se pide en registro
-			BandVO banda = new BandVO(nombre, password, null, null, email, generosArray, null);
 			try {
 				BandDAO bandDAO = BandDAO.getDAO();
 				
-				if (!bandDAO.existeBanda(banda.getEmail())) {
-					bandDAO.addBand(banda);
+				if (!bandDAO.existeBanda(email)) {
+					//Pongo a null foto de perfil y descripci�n, no se pide en registro
+					bandDAO.addBand(nombre, password, null, null, email, null, generosArray);
 				} else {
 					throw new ErrorBandException();
 				}
@@ -89,7 +86,7 @@ public class RegisterBandServlet extends HttpServlet {
 				session.setAttribute("nombre", nombre);
 				session.setAttribute("generos", generosArray);
 				session.setAttribute("home","home_band_info.jsp");
-				session.setAttribute("fotoPerfil", banda.getFotoPerfil());
+				session.setAttribute("fotoPerfil", null);
 				response.sendRedirect("home_band_info.jsp");
 			} catch (ErrorBandException e) {
 				response.sendRedirect("index.html");

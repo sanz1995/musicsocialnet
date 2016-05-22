@@ -63,13 +63,12 @@ public class RegisterFanServlet extends HttpServlet {
 		}
 		
 		if (errores.isEmpty()) {
-			//Pongo a null foto de perfil, no se pide en registro
-			FanVO fan = new FanVO(nombre, password, null, email);
 			try {
 				FanDAO fanDAO = FanDAO.getDAO();
 				//WebFachada model = WebFachada.getWebFachada();
-				if (!fanDAO.existeFan(fan.getEmail())) {
-					fanDAO.addFan(fan);
+				if (!fanDAO.existeFan(email)) {
+					//Pongo a null foto de perfil, no se pide en registro
+					fanDAO.addFan(nombre, password, null, email);
 				} else {
 					throw new ErrorFanException();
 				}
@@ -80,7 +79,7 @@ public class RegisterFanServlet extends HttpServlet {
 				session.setAttribute("home","home_fan_concert.jsp");
 				session.setAttribute("email", email);
 				response.sendRedirect("home_fan_concert.jsp");
-				session.setAttribute("fotoPerfil", fan.getFotoPerfil());
+				session.setAttribute("fotoPerfil", null);
 			} catch (ErrorFanException e) {
 				response.sendRedirect("index.html");
 			}

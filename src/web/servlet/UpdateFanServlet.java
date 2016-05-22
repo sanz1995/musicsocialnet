@@ -2,7 +2,6 @@ package web.servlet;
 
 import web.dao.FanDAO;
 import web.exception.ErrorFanException;
-import web.vo.FanVO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,12 +31,11 @@ public class UpdateFanServlet extends HttpServlet {
             String repassword = request.getParameter("rpaswd");
 
             FanDAO fanDAO = FanDAO.getDAO();
-            FanVO user = fanDAO.buscarFan(email);
 
             if ((nombre == null) || (nombre.trim().equals(""))) {
                 errores.add("nombre");
             }
-            if (passwordA != null && !passwordA.trim().equals("") && !user.getPassword().equals(passwordA)){
+            if (passwordA != null && !passwordA.trim().equals("") && !fanDAO.buscarFan(email).getPassword().equals(passwordA)){
                 errores.add("clave");
             }
             if ((passwordA == null || passwordA.trim().equals("")) && password != null && !password.trim().equals("")) {
@@ -50,20 +48,19 @@ public class UpdateFanServlet extends HttpServlet {
                 errores.add("reclave");
             }
 
-            if (errores.isEmpty()) {
-                FanVO fan;
-                
+            if (errores.isEmpty()) {               
                 if ((fotoPerfil == null) || (fotoPerfil.trim().equals(""))) {
                 	fotoPerfil=null;
                 }
                 
                 if (passwordA == null || passwordA.trim().equals("")) {
-                    fan = new FanVO(nombre, user.getPassword(), fotoPerfil, email);
+                    fanDAO.updateFan(nombre, fanDAO.buscarFan(email).getPassword(), fotoPerfil, email);
+
                 } else {
-                    fan = new FanVO(nombre, password, fotoPerfil, email);
+                    fanDAO.updateFan(nombre, password, fotoPerfil, email);
+
                 }
 
-                fanDAO.updateFan(fan);
                 request.setAttribute("errores", null);
                 session.setAttribute("email", email);
                 session.setAttribute("fotoPerfil", fotoPerfil);

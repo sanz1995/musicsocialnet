@@ -4,7 +4,6 @@ import web.dao.BandDAO;
 import web.dao.CommentDAO;
 import web.exception.ErrorBandException;
 import web.vo.BandVO;
-import web.vo.CommentVO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +16,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 @WebServlet("comment")
@@ -43,9 +41,8 @@ public class CommentServlet extends HttpServlet {
                 Date date = new Date();
                 String fecha = dateFormat.format(date);
                 
-                CommentVO comentario = new CommentVO(texto, fecha, emailL, emailC);
                 CommentDAO commentDAO = CommentDAO.getDAO();
-                commentDAO.comentar(comentario);
+                commentDAO.comentar(texto, fecha, emailL, emailC);
 
                 BandDAO bandDAO = BandDAO.getDAO();
                 BandVO bandVO = bandDAO.buscarBanda(emailC);

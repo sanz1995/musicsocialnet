@@ -43,18 +43,17 @@ public class BandDAO{
 	 * de tipo banda que se ha de almacenar en la BBDD.
 	 */
 	
-	public void addBand(BandVO b){
+	public void addBand(String nombre, String password, String fotoPerfil, String canal, String email, String descripcion, ArrayList<String> generos){
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
 					"INSERT INTO `banda` (`nombre`,`password`,`fotoperfil`,`canal`,`email`,`descripcion`)"
-							+ " VALUES ('" + b.getNombre() + "','" + b.getPassword() + "','"
-							+ b.getFotoPerfil() + "','" + b.getFotoPerfil() + "','" + b.getEmail() + "','" + b.getDescripcion() + "');");
+							+ " VALUES ('" + nombre + "','" + password + "','"
+							+ fotoPerfil + "','" + canal + "','" + email + "','" + descripcion + "');");
 			
-			ArrayList<String> generos = b.getGeneros();
 			for (String genero : generos) {
 				s.execute("INSERT INTO `pertenecer` (`banda_email`,`genero_nombre`)"
-						+ " VALUES ('" + b.getEmail() + "','" + genero + "');");
+						+ " VALUES ('" + email + "','" + genero + "');");
 			}
 		} catch (SQLException ex) {
 			System.out.println("Error al insertar BANDA");
@@ -249,23 +248,22 @@ public class BandDAO{
 	 * la tabla "pertenecer" que g�neros musicales se relacionan con la banda. 
 	 *  
 	 * @param band Objeto de tipo VO que almacena la nueva informaci�n de la banda
-	 */
-	public void updateBand(BandVO band) {
+	 */	
+	public void updateBand(String nombre, String password, String fotoPerfil, String canal, String email, ArrayList<String> generos){
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
-					"UPDATE banda SET nombre='" + band.getNombre() + "', fotoperfil='" + 
-			band.getFotoPerfil() + "', canal='" + band.getCanal() + "', password='" +
-							band.getPassword() + "' " +
-							"WHERE email='" + band.getEmail() + "';");
+					"UPDATE banda SET nombre='" + nombre + "', fotoperfil='" + 
+			fotoPerfil + "', canal='" + canal + "', password='" +
+							password + "' " +
+							"WHERE email='" + email + "';");
 
-			ArrayList<String> generos = band.getGeneros();
 			if (generos != null) {
 				s.execute(
-						"DELETE FROM pertenecer WHERE banda_email='" + band.getEmail() + "';");
+						"DELETE FROM pertenecer WHERE banda_email='" + email + "';");
 				for (String genero : generos) {
 					s.execute("INSERT INTO pertenecer (banda_email,genero_nombre)"
-							+ " VALUES ('" + band.getEmail() + "','" + genero + "');");
+							+ " VALUES ('" + email + "','" + genero + "');");
 				}
 			}
 		} catch (SQLException ex) {
