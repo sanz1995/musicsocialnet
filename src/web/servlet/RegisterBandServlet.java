@@ -89,7 +89,10 @@ public class RegisterBandServlet extends HttpServlet {
 				session.setAttribute("fotoPerfil", null);
 				response.sendRedirect("home_band_info.jsp");
 			} catch (ErrorBandException e) {
-				response.sendRedirect("index.html");
+				request.setAttribute("error", "Lo sentimos, no se ha podido registrar a la banda con"
+						+ " el mail: "+email+".\n Esa banda ya se encuentra en el sistema.");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+				dispatcher.forward(request, response);			
 			}
 		} else {
 			request.setAttribute("nombre", nombre);

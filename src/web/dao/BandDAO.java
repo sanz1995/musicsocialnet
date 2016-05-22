@@ -46,11 +46,17 @@ public class BandDAO{
 	public void addBand(String nombre, String password, String fotoPerfil, String canal, String email, String descripcion, ArrayList<String> generos){
 		try {
 			Statement s = c.getConnection().createStatement();
+			if(fotoPerfil == null)
 			s.execute(
-					"INSERT INTO `banda` (`nombre`,`password`,`fotoperfil`,`canal`,`email`,`descripcion`)"
+					"INSERT INTO `banda` (`nombre`,`password`,`canal`,`email`,`descripcion`)"
 							+ " VALUES ('" + nombre + "','" + password + "','"
-							+ fotoPerfil + "','" + canal + "','" + email + "','" + descripcion + "');");
-			
+							+ canal + "','" + email + "','" + descripcion + "');");
+			else
+				s.execute(
+						"INSERT INTO `banda` (`nombre`,`password`,`fotoperfil`,`canal`,`email`,`descripcion`)"
+								+ " VALUES ('" + nombre + "','" + password + "','"
+								+ fotoPerfil + "','" + canal + "','" + email + "','" + descripcion + "');");
+
 			for (String genero : generos) {
 				s.execute("INSERT INTO `pertenecer` (`banda_email`,`genero_nombre`)"
 						+ " VALUES ('" + email + "','" + genero + "');");

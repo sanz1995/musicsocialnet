@@ -15,8 +15,8 @@ import web.vo.*;
 import web.exception.*;
 
 /**
- * Clase servlet que se encarga de gestionar la interacci贸n entre la interfaz
- * web y la base de datos cuando se produce una petici贸n de tipo get o post
+ * Clase servlet que se encarga de gestionar la interacci髇 entre la interfaz
+ * web y la base de datos cuando se produce una petici髇 de tipo get o post
  * en el formulario de acceso a la red social a traves de la interfaz.
  */
 @WebServlet("loginFan")
@@ -28,12 +28,12 @@ public class LoginServlet extends HttpServlet {
 
 	
 	/**
-	 * Funci贸n que se encarga de comprobar si los datos enviados en la petici贸n
+	 * Funci髇 que se encarga de comprobar si los datos enviados en la petici髇
 	 * se han rellenado correctamente. Y tras esto, si los datos son correctos 
 	 * comprobar si el mail usado en un login esta registrado en la base de 
 	 * datos o no. Devolviendo como respuesta una interfaz web o otra.
 	 * 
-	 * @param  request Objeto que provee informaci贸n sobre la petici贸n del cliente al servlet.
+	 * @param  request Objeto que provee informaci髇 sobre la petici髇 del cliente al servlet.
 	 * @param response Objeto que permite al servlet enviar una respuesta al cliente.
      */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -66,7 +66,6 @@ public class LoginServlet extends HttpServlet {
 				if(!user.getPassword().equals(password)){
 					throw new LoginException();
 				}
-				request.setAttribute("errores", null);
 				HttpSession session = request.getSession();
 				session.setAttribute("nombre", user.getNombre());
 				session.setAttribute("email", email);
@@ -83,14 +82,17 @@ public class LoginServlet extends HttpServlet {
 					response.sendRedirect("home_band_info.jsp");
 				}
 			} catch (LoginException e) {
-				errores.add("noExiste");
-				request.setAttribute("errores", errores);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-				dispatcher.forward(request, response);
+				request.setAttribute("error", "Lo sentimos, no se ha podido iniciar sesi髇 con el\n"
+						+ "mail: "+email);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+				dispatcher.forward(request, response);				
 			} catch (ErrorBandException e) {
 				response.sendRedirect("login.jsp");
+				System.out.println("ERROR BAND EXPCEPTION ERROR LOGIN BAND");
 			} catch (ErrorFanException e) {
 				response.sendRedirect("login.jsp");
+				System.out.println("ERROR FAN EXCEPTION LOGIN BAND");
+
 			}
 		} else {
 			request.setAttribute("errores", errores);
@@ -100,12 +102,12 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	/**
-	 * Funci贸n que se encarga de llamar a la funci贸n doPost de esta clase
+	 * Funci髇 que se encarga de llamar a la funci髇 doPost de esta clase
 	 * y realizar las comprobaciones y pertinentes a los datos enviados en 
-	 * la petici贸n y devolver las respuestas, al igual que se hace con una
-	 * petici贸n de tipo post.
+	 * la petici髇 y devolver las respuestas, al igual que se hace con una
+	 * petici髇 de tipo post.
 	 * 
-	 * @param  request Objeto que provee informaci贸n sobre la petici贸n del cliente al servlet.
+	 * @param  request Objeto que provee informaci髇 sobre la petici髇 del cliente al servlet.
 	 * @param response Objeto que permite al servlet enviar una respuesta al cliente.
      */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

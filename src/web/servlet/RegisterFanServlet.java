@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import web.dao.FanDAO;
 import web.exception.ErrorFanException;
-import web.vo.FanVO;
 
 /**
  * Clase servlet que se encarga de gestionar la interacción entre la interfaz
@@ -81,7 +80,10 @@ public class RegisterFanServlet extends HttpServlet {
 				response.sendRedirect("home_fan_concert.jsp");
 				session.setAttribute("fotoPerfil", null);
 			} catch (ErrorFanException e) {
-				response.sendRedirect("index.html");
+				request.setAttribute("error", "Lo sentimos, no se ha podido registrar al fan con"
+						+ " el mail: "+email+".\n Ese fan ya se encuentra en el sistema.");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+				dispatcher.forward(request, response);
 			}
 		} else {
 			request.setAttribute("nombre", nombre);

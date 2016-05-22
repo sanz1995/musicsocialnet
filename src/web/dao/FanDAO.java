@@ -45,10 +45,16 @@ public class FanDAO {
 	public void addFan(String nombre, String password, String fotoPerfil, String email) {
 		try {
 			Statement s = c.getConnection().createStatement();
+			if(fotoPerfil == null)
 			s.execute(
-					"INSERT INTO `fan` (`nombre`,`password`,`fotoperfil`,`email`)"
-							+ " VALUES ('" + nombre + "','" + password + "','"
-							+ fotoPerfil + "','" + email + "');");
+					"INSERT INTO `fan` (`nombre`,`password`,`email`)"
+							+ " VALUES ('" + nombre + "','" + password
+							 + "','" + email + "');");
+			else
+				s.execute(
+						"INSERT INTO `fan` (`nombre`,`password`,`fotoperfil`,`email`)"
+								+ " VALUES ('" + nombre + "','" + password + "','"
+								+ fotoPerfil + "','" + email + "');");
 		} catch (SQLException ex) {
 			System.out.println("Error al insertar FAN" + ex.getMessage());
 		}
