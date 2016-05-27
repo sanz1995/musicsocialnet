@@ -71,9 +71,9 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("email", email);
 				session.setAttribute("fotoPerfil", user.getFotoPerfil());
 				if(user instanceof FanVO){
-					session.setAttribute("home","home_fan_concert.jsp");
+					session.setAttribute("home","home_fan_news.jsp");
 					session.setAttribute("esFan","true");
-					response.sendRedirect("home_fan_concert.jsp");
+					response.sendRedirect("home_fan_news.jsp");
 				}else{
 					session.setAttribute("home","home_band_info.jsp");
 					session.setAttribute("desc", ((BandVO)user).getDescripcion());

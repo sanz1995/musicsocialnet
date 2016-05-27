@@ -75,10 +75,11 @@ public class RegisterFanServlet extends HttpServlet {
 				request.setAttribute("errores", null);
 				HttpSession session = request.getSession();
 				session.setAttribute("nombre", nombre);
-				session.setAttribute("home","home_fan_concert.jsp");
+				session.setAttribute("home","home_fan_news.jsp");
 				session.setAttribute("email", email);
-				response.sendRedirect("home_fan_concert.jsp");
+				response.sendRedirect("home_fan_news.jsp");
 				session.setAttribute("fotoPerfil", null);
+				session.setAttribute("esFan","true");
 			} catch (ErrorFanException e) {
 				request.setAttribute("error", "Lo sentimos, no se ha podido registrar al fan con"
 						+ " el mail: "+email+".\n Ese fan ya se encuentra en el sistema.");
