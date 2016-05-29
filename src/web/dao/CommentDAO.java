@@ -8,7 +8,6 @@ import java.util.List;
 
 import web.Conexion;
 import web.vo.CommentVO;
-import web.vo.EventVO;
 
 public class CommentDAO {
 
@@ -33,8 +32,8 @@ public class CommentDAO {
 			Statement s = c.getConnection().createStatement();
 			s.execute("INSERT INTO comentario "
 					+ "(texto,fecha,fan_email,banda_email) VALUES "
-					+ "('" + texto +"'," + fecha + 
-					",'" + fanEmail +"','" + bandEmail + "')");
+					+ "('" + texto +"','" + fecha + 
+					"','" + fanEmail +"','" + bandEmail + "')");
 		} catch (SQLException ex) {
 			System.out.println("Error al comentar" + ex.getMessage());
 		}
@@ -45,7 +44,7 @@ public class CommentDAO {
 		try {
 			Statement s = c.getConnection().createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM comentario "
-					+ "WHERE banda_email='" + band + "' ORDER BY fecha");
+					+ "WHERE banda_email='" + band + "' ORDER BY fecha DESC");
 			List<CommentVO> l = new ArrayList<CommentVO>();
 			
 			while(rs.next()){

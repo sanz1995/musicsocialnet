@@ -35,6 +35,8 @@ public class CommentServlet extends HttpServlet {
             if (texto == null || texto.trim().equals("")) {
                 errores.add("texto");
             }
+            
+            System.out.println("Comentario de "+emailL+" a "+emailC+" dice "+texto);
 
             if (errores.isEmpty()) {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
