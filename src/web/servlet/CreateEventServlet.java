@@ -60,7 +60,6 @@ public class CreateEventServlet extends HttpServlet{
         if(fecha.compareTo(dateFormat.format(date)) < 0) {
             errores.add("fecha");
         }
-
         if (errores.isEmpty()) {
             EventDAO eventDAO = EventDAO.getDAO();
             eventDAO.crearEvento(new EventVO(nombre, banda, fecha, lugar,"0", tiempo));
