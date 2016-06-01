@@ -1,5 +1,9 @@
 package web.vo;
 
+/**
+ * Clase de tipo Value Object que representa una entidad simple en la BBDD,
+ * en este caso, la entidad representada en la tabla "evento" de la BBDD.
+ */
 public class EventVO {
 
 	private String id;
@@ -10,6 +14,10 @@ public class EventVO {
 	private String nasistentes;
 	private String hora;
 	
+	/**
+	 * Constructor a partir de los atributos que se permiten almacenar en la 
+	 * tabla que representa la entidad evento en la BBDD.
+	 */
 	public EventVO(String id,String nombre,String banda, String fecha, String lugar, String nasistentes,String hora) {
 		this.id=id;
 		this.nombre=nombre;
@@ -20,6 +28,11 @@ public class EventVO {
 		this.hora=formatearHora(hora);
 	}
 	
+	/**
+	 * Constructor a partir de los atributos que se permiten almacenar en la 
+	 * tabla que representa la entidad evento en la BBDD. Sin el id del comentario
+	 * ya que no es información realmente necesaria.
+	 */
 	public EventVO(String nombre,String banda,String fecha, String lugar, String nasistentes,String hora) {
 		this.nombre=nombre;
 		this.banda=banda;
@@ -29,17 +42,26 @@ public class EventVO {
 		this.hora=formatearHora(hora);
 	}
 	
+	/**
+	 * Método que da al atributo fecha de la base de datos un formato distinto al almacenado
+	 * en la BBDD.
+	 */
 	private String formatearFecha(String fecha){
 		String res = "";
 		
 		for (int i = 0; i<fecha.length();i++){
-			if(fecha.charAt(i)!='-'){
+			if(fecha.charAt(i)!='-' && fecha.charAt(i)!='/'){
 				res += fecha.charAt(i);
 			}
 		}
 		return res;
 		
 	} 
+	
+	/**
+	 * Método que da al atributo hora de la base de datos un formato distinto al almacenado
+	 * en la BBDD.
+	 */
 	private String formatearHora(String hora){
 		String res = "";
 		
@@ -52,7 +74,7 @@ public class EventVO {
 	}
 	
 	/**
-	 * Devuleve una cadena de carácteres con el id de la evento almacenado
+	 * Devuelve una cadena de carácteres con el id de la evento almacenado
 	 * en el atributo "id" del objeto eventoVO.
 	 * 
 	 * @return Cadenas de carácteres que representa el contenido del atributo
@@ -63,7 +85,7 @@ public class EventVO {
 	}
 	
 	/**
-	 * Devuleve una cadena de carácteres con el nombre del evento almacenado
+	 * Devuelve una cadena de carácteres con el nombre del evento almacenado
 	 * en el atributo "nombre" del objeto EventoVO.
 	 * 
 	 * @return Cadenas de carácteres que representa el contenido del atributo
@@ -74,7 +96,7 @@ public class EventVO {
 	}
 
 	/**
-	 * Devuleve una cadena de carácteres con la la banda almacenado
+	 * Devuelve una cadena de carácteres con la la banda almacenado
 	 * en el atributo "banda" del objeto EventVO.
 	 * 
 	 * @return Cadenas de carácteres que representa el contenido del atributo
@@ -86,7 +108,7 @@ public class EventVO {
 	
 
 	/**
-	 * Devuleve una cadena de carácteres con la fecha de la banda almacenado
+	 * Devuelve una cadena de carácteres con la fecha de la banda almacenado
 	 * en el atributo "fecha" del objeto BandaVO.
 	 * 
 	 * @return Cadenas de carácteres que representa el contenido del atributo
@@ -97,7 +119,7 @@ public class EventVO {
 	}
 
 	/**
-	 * Devuleve una cadena de carácteres con el lugar de la evento almacenado
+	 * Devuelve una cadena de carácteres con el lugar de la evento almacenado
 	 * en el atributo "lugar" del objeto eventoVO.
 	 * 
 	 * @return Cadenas de carácteres que representa el contenido del atributo
@@ -108,7 +130,7 @@ public class EventVO {
 	}
 
 	/**
-	 * Devuleve una cadena de carácteres con el numero de asistentes de la evento almacenado
+	 * Devuelve una cadena de carácteres con el numero de asistentes de la evento almacenado
 	 * en el atributo "nasistentes" del objeto eventoVO.
 	 * 
 	 * @return Cadenas de carácteres que representa el contenido del atributo
@@ -118,7 +140,7 @@ public class EventVO {
 		return nasistentes;
 	}
 	/**
-	 * Devuleve una cadena de carácteres con la hora de la evento almacenado
+	 * Devuelve una cadena de carácteres con la hora de la evento almacenado
 	 * en el atributo "hora" del objeto eventoVO.
 	 * 
 	 * @return Cadenas de carácteres que representa el contenido del atributo

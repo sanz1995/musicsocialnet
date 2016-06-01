@@ -4,6 +4,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Clase de tipo Value Object que representa una entidad simple en la BBDD,
+ * en este caso, la entidad representada en la tabla "comentario" de la BBDD.
+ */
 public class CommentVO {
 
 	private String texto;
@@ -11,12 +15,21 @@ public class CommentVO {
 	private String userEmail;
 	private String bandEmail;
 	
+	/**
+	 * Constructor a partir de los atributos que se permiten almacenar en la 
+	 * tabla que representa la entidad comentario en la BBDD.
+	 */
 	public CommentVO(String tex,String tim,String u,String b){
 		texto = tex;
 		time = formatearFecha(tim);
 		userEmail = u;
 		bandEmail = b;
 	}
+	
+	/**
+	 * Método que da al atributo fecha de la base de datos un formato distinto al almacenado
+	 * en la BBDD.
+	 */
 	private String formatearFecha(String fecha){
 		String res = "";
 		for (int i = 0; i<fecha.length();i++){
@@ -29,13 +42,23 @@ public class CommentVO {
 		
 	} 
 	
-	
+	/**
+	 * Método que obtiene el valor del atributo texto de la base de datos
+	 */
 	public String getTexto(){
 		return texto;
 	}
+	
+	/**
+	 * Método que obtiene el valor del atributo fecha de la base de datos
+	 */
 	public String getTime(){
 		return time;
 	}
+	
+	/**
+	 * Método que calcula el tiempo que hace que se realizo un comentario en base a la hora actual
+	 */
 	public String getDifference(){
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date date = new Date();
@@ -91,9 +114,17 @@ public class CommentVO {
 			return year +" years ago";
 		}
 	}
+	
+	/**
+	 * Método que obtiene el valor del atributo fanEmail de la base de datos
+	 */
 	public String getUserEmail(){
 		return userEmail;
 	}
+	
+	/**
+	 * Método que obtiene el valor del atributo bandEmail de la base de datos
+	 */
 	public String getBandEmail(){
 		return bandEmail;
 	}

@@ -1,7 +1,7 @@
 package web.servlet;
 
 import web.dao.EventDAO;
-
+import web.vo.EventVO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +14,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Clase servlet que se encarga de gestionar la interacción entre la interfaz
+ * web y la base de datos cuando se produce una petición de tipo get o post
+ * en el formulario de acceso a la red social a traves de la interfaz.
+ */
 @WebServlet
 public class CreateEventServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
+    /**
+	 * Función que se encarga de comprobar si los datos enviados en la petici�n
+	 * se han rellenado correctamente. Y tras esto, si los datos son correctos 
+	 * comprobar si el mail usado en un login esta registrado en la base de 
+	 * datos o no. Devolviendo como respuesta una interfaz web o otra.
+	 * 
+	 * @param  request Objeto que provee información sobre la petición del cliente al servlet.
+	 * @param response Objeto que permite al servlet enviar una respuesta al cliente.
+     */
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ArrayList<String> errores = new ArrayList<String>();
 
@@ -47,18 +61,12 @@ public class CreateEventServlet extends HttpServlet{
             errores.add("fecha");
         }
 
-        if(fecha.contains("/")) {
-            errores.add("fecha");
-        }
-
         if (errores.isEmpty()) {
             EventDAO eventDAO = EventDAO.getDAO();
-            eventDAO.crearEvento(nombre, banda, fecha, lugar, tiempo);
+            eventDAO.crearEvento(new EventVO(nombre, banda, fecha, lugar,"0", tiempo));
             request.setAttribute("errores", null);
             response.sendRedirect("home_band_event.jsp");
         } else {
-            request.setAttribute("nombre", nombre);
-            request.setAttribute("lugar", lugar);
             request.setAttribute("errores", errores);
             RequestDispatcher dispatcher = request.getRequestDispatcher("home_band_event.jsp");
             dispatcher.forward(request, response);
@@ -66,13 +74,13 @@ public class CreateEventServlet extends HttpServlet{
     }
 
     /**
-     * Función que se encarga de llamar a la función doPost de esta clase
-     * y realizar las comprobaciones y pertinentes a los datos enviados en
-     * la petición y devolver las respuestas, al igual que se hace con una
-     * petición de tipo post.
-     *
-     * @param  request Objeto que provee información sobre la petición del cliente al servlet.
-     * @param response Objeto que permite al servlet enviar una respuesta al cliente.
+	 * Función que se encarga de llamar a la función doPost de esta clase
+	 * y realizar las comprobaciones y pertinentes a los datos enviados en 
+	 * la petición y devolver las respuestas, al igual que se hace con una
+	 * petición de tipo post.
+	 * 
+	 * @param  request Objeto que provee información sobre la petición del cliente al servlet.
+	 * @param response Objeto que permite al servlet enviar una respuesta al cliente.
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doPost(request, response);

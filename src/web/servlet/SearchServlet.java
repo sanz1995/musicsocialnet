@@ -11,10 +11,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import web.dao.BandDAO;
 
+/**
+ * Clase servlet que se encarga de gestionar la interacci贸n entre la interfaz
+ * web y la base de datos cuando se produce una petici贸n de tipo get o post
+ * en el formulario de registro en la red social por parte de un usuario de tipo 
+ * fan a traves de la interfaz.
+ */
 @WebServlet
 public class SearchServlet  extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
+	/**
+	 * Funci贸n que se encarga de comprobar si los datos enviados en la petici贸n
+	 * se han rellenado correctamente. Y tras esto, si los datos son correctos 
+	 * comprobar si el mail usado en un login esta registrado en la base de 
+	 * datos o no. Devolviendo como respuesta una interfaz web o otra.
+	 * 
+	 * @param  request Objeto que provee informaci贸n sobre la petici贸n del cliente al servlet.
+	 * @param response Objeto que permite al servlet enviar una respuesta al cliente.
+     */
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
  		String banda = request.getParameter("banda");
  		String[] generos = request.getParameter("generos").split(",");
@@ -35,13 +50,13 @@ public class SearchServlet  extends HttpServlet{
     }
 
     /**
-     * Funci髇 que se encarga de llamar a la funci髇 doPost de esta clase
-     * y realizar las comprobaciones y pertinentes a los datos enviados en
-     * la petici锟絥 y devolver las respuestas, al igual que se hace con una
-     * petici锟絥 de tipo post.
-     *
-     * @param  request Objeto que provee informaci锟絥 sobre la petici锟絥 del cliente al servlet.
-     * @param response Objeto que permite al servlet enviar una respuesta al cliente.
+	 * Funci贸n que se encarga de llamar a la funci贸n doPost de esta clase
+	 * y realizar las comprobaciones y pertinentes a los datos enviados en 
+	 * la petici贸n y devolver las respuestas, al igual que se hace con una
+	 * petici贸n de tipo post.
+	 * 
+	 * @param  request Objeto que provee informaci贸n sobre la petici贸n del cliente al servlet.
+	 * @param response Objeto que permite al servlet enviar una respuesta al cliente.
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doPost(request, response);

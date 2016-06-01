@@ -8,13 +8,11 @@ import java.sql.*;
 public class JDBCTemplate {
 	
 	/**
-	 * CaDena de caracteres con el nombre de usuario, o login, a emplear para
-	 * conectarse a la BD
+	 * Cadena de carácteres con el nombre de usuario, o login, a emplear para conectarse a la BD
 	 */
 	String user = "";
 	/**
-	 * Cadena de caracteres con el password, o contrase??a, a emplear para
-	 * conectarse a la BD
+	 * Cadena de carácteres con el password, o contraseña, a emplear para conectarse a la BD
 	 */
 	String password = "";
 	/**
@@ -25,8 +23,8 @@ public class JDBCTemplate {
 	Configuration config = null;
 
 	/**
-	 * Metodo constructor. Asigna los valores de usuario, password, host, puerto
-	 * y nombre de la bd, para que posteriormente pueda hacerse la conexion
+	 * Método constructor. Asigna los valores de usuario, password, host, puerto
+	 * y nombre de la bd, para que posteriormente pueda hacerse la conexión
 
 	 */
 	public JDBCTemplate(Configuration config, String user,
@@ -40,13 +38,11 @@ public class JDBCTemplate {
 	}
 
 	/**
-	 * Metodo para establecer la conexion JDBC con la BD
-	 * <p>
+	 * M�todo para establecer la conexi�n JDBC con la BD
 	 * 
 	 * @throws SQLException
 	 * 
-	 * @exception Lanza
-	 *                una excepcion en caso de que se produzca algun error
+	 * @exception Lanza una excepci�n en caso de que se produzca algun error
 	 */
 	public void connect() throws SQLException {
 		// Estableciendo la conexion con la BD
@@ -75,8 +71,7 @@ public class JDBCTemplate {
 	/**
 	 * Metodo para realizar una pregunta SQL a la BD (una sentencia SELECT)
 	 * 
-	 * @param sql
-	 *            sentencia SQL
+	 * @param sql sentencia SQL
 	 */
 	public void executeQuery(String sql) {
 
@@ -133,8 +128,7 @@ public class JDBCTemplate {
 	 * Metodo para ejecutar una sentencia SQL que no sea una pregunta, es decir,
 	 * que no devuelva una tabla como resultado.
 	 * 
-	 * @param sql
-	 *            sentencia SQL
+	 * @param sql sentencia SQL
 	 */
 	public void executeSentence(String sql) {
 		Statement stmt = null;

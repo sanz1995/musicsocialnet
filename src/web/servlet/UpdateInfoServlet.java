@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import web.dao.BandDAO;
 import web.exception.*;
 
-
 /**
  * Clase servlet que se encarga de gestionar la interacción entre la interfaz
  * web y la base de datos cuando se produce una petición de tipo get o post
@@ -24,11 +23,11 @@ public class UpdateInfoServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
 	/**
-	 * Función que se encarga de modificar en la información de un usuario banda
-	 * en la base de datos. Dependiendo de si el se consigue o no actualizar el valor
-	 *  se mostrara la interfaz web con la info actualizada o un error.
+	 * Función que se encarga de comprobar si los datos enviados en la petición
+	 * se han rellenado correctamente. Y tras esto, si los datos son correctos 
+	 * comprobar si el mail usado en un login esta registrado en la base de 
+	 * datos o no. Devolviendo como respuesta una interfaz web o otra.
 	 * 
 	 * @param  request Objeto que provee información sobre la petición del cliente al servlet.
 	 * @param response Objeto que permite al servlet enviar una respuesta al cliente.
@@ -57,7 +56,7 @@ public class UpdateInfoServlet extends HttpServlet {
 	 * 
 	 * @param  request Objeto que provee información sobre la petición del cliente al servlet.
 	 * @param response Objeto que permite al servlet enviar una respuesta al cliente.
-     	 */
+     */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		doPost(request, response);
 	}

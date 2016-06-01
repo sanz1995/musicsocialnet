@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Iterator;
 
 /**
- * Emulacion de un Cursor de PL/SQL
+ * Emulación de un Cursor de PL/SQL
  *
  */
 public class Cursor implements Iterable<Cursor> {

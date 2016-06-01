@@ -10,10 +10,10 @@ import web.exception.ErrorBandException;
 import web.vo.BandVO;
 
 /**
- * Clase que implementa un patr�n de acceso a BBDD de tipo Table Data Gateway,
+ * Clase que implementa un patrón de acceso a BBDD de tipo Table Data Gateway,
  * en este caso, para la tabla de la BBDD que almacena los datos de un usuario
- * de tipo banda. Tambi�n implementan un Singleton, permitiendose una sola instancia
- * de esta clase en ejecuci�n.
+ * de tipo banda. También implementan un Singleton, permitiendose una sola instancia
+ * de esta clase en ejecución.
  */
 public class BandDAO{
 
@@ -34,13 +34,18 @@ public class BandDAO{
 	}
 
 	/**
-	 * Funci�n que se encarga de insertar los datos de una banda en la BBDD, incluidos los
+	 * Función que se encarga de insertar los datos de una banda en la BBDD, incluidos los
 	 * datos que se almacenan en la tabla banda y los de la tabla pertenece que indica los generos
 	 * musicales que interpreta este usuario banda.
-	 * Si no puede insertarlos lanza una excepci�n.
+	 * Si no puede insertarlos lanza una excepción.
 	 * 
-	 * @param b Objeto de tipo BandVO que contiene la informaci�n de un usuario
-	 * de tipo banda que se ha de almacenar en la BBDD.
+	 * @param nombre Cadena de carácteres con el nombre de la banda
+	 * @param password Cadena de carácteres con la contraseña de la banda
+	 * @param fotoPerfil Cadena de carácteres con la URL de la im�gen de la banda
+	 * @param canal Cadena de carácteres con la URL del canal de youtube de la banda
+	 * @param email Cadena de carácteres con el email que identifica a la banda
+	 * @param descripcion Cadena de carácteres con la descripción de la banda
+	 * @param generos Lista dinámica de cadenas de caracteres con los generos de la banda
 	 */
 	
 	public void addBand(String nombre, String password, String fotoPerfil, String canal, String email, String descripcion, ArrayList<String> generos){
@@ -67,13 +72,13 @@ public class BandDAO{
 	}
 
 	/**
-	 * Funci�n que se encarga de comprobar si el email de la banda introducido
+	 * Función que se encarga de comprobar si el email de la banda introducido
 	 * por parametros se encuentra almacenado en la BBDD.
 	 * 
 	 * @param email Cadena de caracteres que identifica al usuario de tipo 
 	 * banda a comprobar.
 	 * @return Variable booleana con valor true si la banda indicada se encuentra
-	 * en la BBDD y false si no est� almacenada en esta.
+	 * en la BBDD y false si no está almacenada en esta.
 	 */
 	public boolean existeBanda(String email){
 		try {
@@ -94,8 +99,8 @@ public class BandDAO{
 	}
 
 	/**
-	 * Funci�n que se encarga de realizar la query a la base de datos que 
-	 * permite obtener todos los generos m�sicales almacenados en esta.
+	 * Función que se encarga de realizar la query a la base de datos que 
+	 * permite obtener todos los generos musicales almacenados en esta.
 	 * 
 	 * @return Lista con los generos musicales almacenado en la tabla de la
 	 * base de datos "genero".
@@ -117,14 +122,14 @@ public class BandDAO{
 	}	
 
 	/**
-	 * Funci�n que se encarga de realizar la query a la base de datos que 
-	 * permite obtener todos los generos m�sicales que pertenecen a la banda indicada
-	 * como par�metro.
+	 * Función que se encarga de realizar la query a la base de datos que 
+	 * permite obtener todos los generos musicales que pertenecen a la banda indicada
+	 * como parámetro.
 	 * 
 	 * @param email Cadena de caracteres que identifica al usuario de tipo 
 	 * banda a comprobar.
 	 * @return Lista con los generos musicales almacenados en la tabla pertenecer con 
-	 * relaci�n a la banda introducida por par�metros.
+	 * relación a la banda introducida por parámetros.
 	 */
 	public ArrayList<String> getGeneros (String email) {
 		try {
@@ -144,15 +149,15 @@ public class BandDAO{
 
 
 	/**
-	 * Funci�n que se encarga de buscar en la base de datos los datos del usuario de
-	 * tipo banda que se identifican a partir del email introducido como par�metro
-	 * en la funci�n.
+	 * Función que se encarga de buscar en la base de datos los datos del usuario de
+	 * tipo banda que se identifican a partir del email introducido como parámetro
+	 * en la función.
 	 * 
 	 * @param email Cadena de caracteres que identifica al usuario de tipo 
 	 * banda a buscar.
-	 * @return Objeto de tipo FanVO con toda la informaci�n almacenada sobre
+	 * @return Objeto de tipo FanVO con toda la información almacenada sobre
 	 * un usuario de tipo banda en la tabla de la base de datos "banda" que se
-	 * identifica a partir del email introducido como par�metro.
+	 * identifica a partir del email introducido como parámetro.
 	 */
 	public BandVO buscarBanda(String email) throws ErrorBandException{
 		try {
@@ -173,8 +178,8 @@ public class BandDAO{
 	}
 
 	/**
-	 * Funci�n que se encarga de actualiza en la BBDD el atributo informaci�n 
-	 * de la banda introducida como segundo par�metro.
+	 * Función que se encarga de actualiza en la BBDD el atributo información 
+	 * de la banda introducida como segundo parámetro.
 	 *  
 	 * @param email Cadena de caracteres que representa el email que identifica a una banda
 	 * @param info Cadena de caracteres con la información a actualizar en la BBDD sobre la banda
@@ -193,11 +198,11 @@ public class BandDAO{
 	}
 	
 	/**
-	 * Funci�n que se encarga de hacer una b�squeda en la BBDD sobre las 
-	 * bandas que cumplen con la keyWord introducida como par�metro.
+	 * Función que se encarga de hacer una búsqueda en la BBDD sobre las 
+	 * bandas que cumplen con la keyWord introducida como parámetro.
 	 *  
-	 * @param keyWord Cadena de caracteres que representa el nombre de la banda introducido en la b�squeda
-	 * @param generos Cadena de caracteres que representa el nombre de la banda introducido en la b�squeda
+	 * @param keyWord Cadena de caracteres que representa el nombre de la banda introducido en la búsqueda
+	 * @param generos Cadena de caracteres que representa el nombre de la banda introducido en la búsqueda
 	 * @return Lista de objetos de tipo Banda con las bandas obtenidas como respuesta a la query
 	 */
 	public List<BandVO> search(String keyWord, ArrayList<String> generos){
@@ -249,11 +254,16 @@ public class BandDAO{
 	}
 	
 	/**
-	 * Funci�n que se encarga de hacer actualizar en la tabla de la BBDD que almacena
-	 * las banda la informaci�n introducida en el par�metro "band" y de actualizar en
-	 * la tabla "pertenecer" que g�neros musicales se relacionan con la banda. 
+	 * Función que se encarga de hacer actualizar en la tabla de la BBDD que almacena
+	 * las banda la información introducida en el parámetro "band" y de actualizar en
+	 * la tabla "pertenecer" que géneros musicales se relacionan con la banda. 
 	 *  
-	 * @param band Objeto de tipo VO que almacena la nueva informaci�n de la banda
+	 * @param nombre Cadena de carácteres con el nombre de la banda
+	 * @param password Cadena de carácteres con la contraseña de la banda
+	 * @param fotoPerfil Cadena de carácteres con la URL de la imágen de la banda
+	 * @param canal Cadena de carácteres con la URL del canal de youtube de la banda
+	 * @param email Cadena de carácteres con el email que identifica a la banda
+	 * @param generos Lista dinámica de cadenas de caracteres con los generos de la banda
 	 */	
 	public void updateBand(String nombre, String password, String fotoPerfil, String canal, String email, ArrayList<String> generos){
 		try {

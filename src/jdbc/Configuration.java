@@ -1,6 +1,6 @@
 package jdbc;
 /**
- * Interfaz para representar una configuracion de base de datos.
+ * Interfaz para representar una configuración de base de datos.
  *
  */
 public interface Configuration {

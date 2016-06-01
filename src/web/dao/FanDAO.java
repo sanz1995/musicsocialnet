@@ -11,10 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Clase que implementa un patr�n de acceso a BBDD de tipo Table Data Gateway,
+ * Clase que implementa un patrón de acceso a BBDD de tipo Table Data Gateway,
  * en este caso, para la tabla de la BBDD que almacena los datos de un usuario
- * de tipo fan. Tambi�n implementan un Singleton, permitiendose una sola instancia
- * de esta clase en ejecuci�n.
+ * de tipo fan. También implementan un Singleton, permitiendose una sola instancia
+ * de esta clase en ejecución.
  */
 public class FanDAO {
 
@@ -35,12 +35,14 @@ public class FanDAO {
 	}
 	
 	/**
-	 * Funci�n que se encarga de insertar los datos de un fan en la BBDD 
+	 * Función que se encarga de insertar los datos de un fan en la BBDD 
 	 * en la tabla "fan". 
-	 * Si no puede insertarlos lanza una excepci�n.
+	 * Si no puede insertarlos lanza una excepción.
 	 * 
-	 * @param f Objeto de tipo FanVO que contiene la informaci�n de un usuario
-	 * de tipo fan que se ha de almacenar en la BBDD.
+	 * @param nombre Cadena de carácteres con el nombre del fan
+	 * @param password Cadena de carácteres con la contraseña del fan
+	 * @param fotoPerfil Cadena de carácteres con la URL de la imágen del fan
+	 * @param email Cadena de carácteres con el email que identifica al fan
 	 */
 	public void addFan(String nombre, String password, String fotoPerfil, String email) {
 		try {
@@ -62,11 +64,11 @@ public class FanDAO {
 	
 	
 	/**
-	 * Funci�n que se encarga de insertar en la BBDD la relaci�n de follow sobre 
-	 * la banda y el fansobre introducidos como par�metro.
+	 * Función que se encarga de insertar en la BBDD la relación de follow sobre 
+	 * la banda y el fansobre introducidos como parámetro.
 	 * 
-	 * @param fan Cadena de caracteres que representa el nombre del fan seguidor
-	 * @param band Cadena de caracteres que representa el nombre de la banda a seguir
+	 * @param fan Cadena de carácteres que representa el nombre del fan seguidor
+	 * @param band Cadena de carácteres que representa el nombre de la banda a seguir
 	 */
 	public void seguir(String fan,String band) {
 		try {
@@ -78,11 +80,11 @@ public class FanDAO {
 	}
 	
 	/**
-	 * Funci�n que se encarga de insertar en la BBDD la relaci�n de unfollow sobre 
-	 * la banda y el fansobre introducidos como par�metro.
+	 * Función que se encarga de insertar en la BBDD la relación de unfollow sobre 
+	 * la banda y el fansobre introducidos como parámetro.
 	 *  
-	 * @param fan Cadena de caracteres que representa el nombre del fan seguidor
-	 * @param band Cadena de caracteres que representa el nombre de la banda a seguir
+	 * @param fan Cadena de carácteres que representa el nombre del fan seguidor
+	 * @param band Cadena de carácteres que representa el nombre de la banda a seguir
 	 */
 	public void dejarDeSeguir(String fan,String band) {
 		try {
@@ -94,11 +96,11 @@ public class FanDAO {
 	}
 	
 	/**
-	 * Funci�n que se encarga de verificar si el fan introducido como par�metro sigue
+	 * Función que se encarga de verificar si el fan introducido como parámetro sigue
 	 * a la banda introducida o no en la BBDD.
 	 *  
-	 * @param fan Cadena de caracteres que representa el nombre del fan seguidor
-	 * @param band Cadena de caracteres que representa el nombre de la banda seguida o no
+	 * @param fan Cadena de carácteres que representa el nombre del fan seguidor
+	 * @param band Cadena de carácteres que representa el nombre de la banda seguida o no
 	 */
 	public boolean sigue(String fan,String band){
 		try {
@@ -122,7 +124,7 @@ public class FanDAO {
 	}	
 	
 	/**
-	 * Funci�n que se encarga de comprobar si el email del fan introducido
+	 * Función que se encarga de comprobar si el email del fan introducido
 	 * por parametros se encuentra almacenado en la BBDD.
 	 * 
 	 * @param email Cadena de caracteres que identifica al usuario de tipo 
@@ -149,11 +151,11 @@ public class FanDAO {
 	}	
 	
 	/**
-	 * Funci�n que se encarga de comprobar que usuarios de tipo banda son 
+	 * Función que se encarga de comprobar que usuarios de tipo banda son 
 	 * seguidos por el usuario fan introducido, es decir, tienen una relaci�n
 	 * a traves de la tabla "seguir" en la base de datos.
 	 *  
-	 * @param user Cadena de car�cteres que indica el email del fan sobre el
+	 * @param user Cadena de carácteres que indica el email del fan sobre el
 	 * que buscar las bandas seguidas por este.
 	 * @return Lista con los usuarios de tipo banda encapsulados en el objeto 
 	 * BandVO que se relacionan con el usuario introducido.
@@ -178,15 +180,15 @@ public class FanDAO {
 	
 	
 	/**
-	 * Funci�n que se encarga de buscar en la base de datos los datos del usuario de
-	 * tipo fan que se identifican a partir del email introducido como par�metro
-	 * en la funci�n.
+	 * Función que se encarga de buscar en la base de datos los datos del usuario de
+	 * tipo fan que se identifican a partir del email introducido como parámetro
+	 * en la función.
 	 * 
 	 * @param email Cadena de caracteres que identifica al usuario de tipo 
 	 * fan a buscar.
-	 * @return Objeto de tipo FanVO con toda la informaci�n almacenada sobre
+	 * @return Objeto de tipo FanVO con toda la información almacenada sobre
 	 * un usuario de tipo fan en la tabla de la base de datos "fan" que se
-	 * identifica a partir del email introducido como par�metro.
+	 * identifica a partir del email introducido como parámetro.
 	 */
 	public FanVO buscarFan(String email) throws ErrorFanException {
 		try {
@@ -208,7 +210,10 @@ public class FanDAO {
 	 * Función que se encarga de hacer actualizar en la tabla de la BBDD que almacena
 	 * los fans la información introducida en el parámetro "fan".
 	 *
-	 * @param fan Objeto de tipo VO que almacena la nueva informaci�n de la banda
+	 * @param nombre Cadena de carácteres con el nombre del fan
+	 * @param password Cadena de carácteres con la contraseña del fan
+	 * @param fotoPerfil Cadena de carácteres con la URL de la imágen del fan
+	 * @param email Cadena de carácteres con el email que identifica al fan
 	 */
 	public void updateFan(String nombre, String password, String fotoPerfil, String email) {
 		try {

@@ -1,5 +1,9 @@
 package web.vo;
 
+/**
+ * Clase de tipo Value Object que representa una los atributos comunes en la BBDD
+ * a las entidades representadas en la tabla "fan" y "banda" de la BBDD.
+ */
 public class UserVO {
 	protected String nombre;
 	protected String password;

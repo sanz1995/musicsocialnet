@@ -1,10 +1,7 @@
 package jdbc;
 
 /**
- * Configuracion de una BD Oracle.
- */
-/**
- * Configuracion de una BD MySQL.
+ * Configuración de una BD MySQL.
  */
 
 public class MySQLConfiguration implements Configuration {

@@ -16,23 +16,21 @@ import web.exception.ErrorBandException;
 /**
  * Clase servlet que se encarga de gestionar la interacci贸n entre la interfaz
  * web y la base de datos cuando se produce una petici贸n de tipo get o post
- * en el formulario de registro en la red social por parte de un usuario de tipo 
- * banda a traves de la interfaz.
+ * en el formulario de acceso a la red social a traves de la interfaz.
  */
 @WebServlet("registroBanda")
 public class RegisterBandServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Funci贸n que se encarga de comprobar si los datos enviados en la petici贸n
-	 * se han rellenado correctamente, y no son nulos aquellos campos obligatorios.
-	 * Y despues, si los datos son correctos intenta introducir el usuario banda
-	 * a partir de los datos anteriores en la base de datos. Dependiendo de si el
-	 * nuevo usuario es almacenado o no se devuelve como respuesta una interfaz web o otra.
+    /**
+	 * Funci贸n que se encarga de comprobar si los datos enviados en la petici锟絥
+	 * se han rellenado correctamente. Y tras esto, si los datos son correctos 
+	 * comprobar si el mail usado en un login esta registrado en la base de 
+	 * datos o no. Devolviendo como respuesta una interfaz web o otra.
 	 * 
 	 * @param  request Objeto que provee informaci贸n sobre la petici贸n del cliente al servlet.
 	 * @param response Objeto que permite al servlet enviar una respuesta al cliente.
-     */	
+     */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ArrayList<String> errores = new ArrayList<String>();
 
@@ -73,7 +71,7 @@ public class RegisterBandServlet extends HttpServlet {
 				BandDAO bandDAO = BandDAO.getDAO();
 				
 				if (!bandDAO.existeBanda(email)) {
-					//Pongo a null foto de perfil y descripci髇, no se pide en registro
+					//Pongo a null foto de perfil y descripci锟絥, no se pide en registro
 					bandDAO.addBand(nombre, password, null, null, email, null, generosArray);
 				} else {
 					throw new ErrorBandException();
