@@ -45,16 +45,16 @@ public class EventDAO {
 	 * @param nombre Objeto de tipo EventVO que contiene la informaci�n de un evento
 	 *  que se ha de almacenar en la BBDD.
 	 */
-	public void crearEvento(String nombre, String banda, String fecha, String lugar, String hora) {
+	public void crearEvento(EventVO e) {
 		try {
 			Statement s = c.getConnection().createStatement();
 			s.execute(
 					"INSERT INTO evento (nombreevento,bandaemail,fecha,lugar,nasistentes,hora)"
-					+ " VALUES ('" + nombre + "','" + banda +
-					"'," + fecha  + ",'" + lugar + "'," + 0  
-					+ "," + hora  + ");");
+					+ " VALUES ('" + e.getNombre() + "','" + e.getBanda() +
+					"'," + e.getFecha()  + ",'" + e.getLugar() + "'," + e.getNumAsistentes() 
+					+ "," + e.getHora()  + ");");
 		} catch (SQLException ex) {
-			System.out.println("Error al insertar FAN" + ex.getMessage());
+			System.out.println("Error al insertar Evento" + ex.getMessage());
 		}
 	}
 	
@@ -200,7 +200,7 @@ public class EventDAO {
 
 		FanDAO fanDAO = FanDAO.getDAO();
 		List<BandVO> bands = fanDAO.siguiendoA(user);
-		List<EventVO> events = new ArrayList<>();
+		List<EventVO> events = new ArrayList<EventVO>();
 
 		for (BandVO band:bands) {
 			List<EventVO> eventsBand = proximosEventosBanda(band.getEmail());

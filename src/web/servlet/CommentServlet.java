@@ -24,51 +24,47 @@ public class CommentServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        try {
-            ArrayList<String> errores = new ArrayList<>();
-            HttpSession session = request.getSession();
-            String emailL = (String) session.getAttribute("email");
+    	ArrayList<String> errores = new ArrayList<String>();
+        HttpSession session = request.getSession();
+        String emailL = (String) session.getAttribute("email");
 
-            String texto = request.getParameter("texto");
-            String emailC = request.getParameter("emailC");
+        String texto = request.getParameter("texto");
+        String emailC = request.getParameter("emailC");
 
-            if (texto == null || texto.trim().equals("")) {
-                errores.add("texto");
-            }
+        if (texto == null || texto.trim().equals("")) {
+            errores.add("texto");
+        }
             
-            System.out.println("Comentario de "+emailL+" a "+emailC+" dice "+texto);
+        System.out.println("Comentario de "+emailL+" a "+emailC+" dice "+texto);
 
-            if (errores.isEmpty()) {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
-                Date date = new Date();
-                String fecha = dateFormat.format(date);
+        if (errores.isEmpty()) {
+        	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+            Date date = new Date();
+            String fecha = dateFormat.format(date);
                 
-                CommentDAO commentDAO = CommentDAO.getDAO();
-                commentDAO.comentar(texto, fecha, emailL, emailC);
+            CommentDAO commentDAO = CommentDAO.getDAO();
+            commentDAO.comentar(texto, fecha, emailL, emailC);
 
-                BandDAO bandDAO = BandDAO.getDAO();
-                BandVO bandVO = bandDAO.buscarBanda(emailC);
+                //BandDAO bandDAO = BandDAO.getDAO();
+                //BandVO bandVO = bandDAO.buscarBanda(emailC);
 
-                request.setAttribute("errores", null);
+            request.setAttribute("errores", null);
 
-                session.setAttribute("email", emailL);
-                session.setAttribute("emailB", emailC);
-                session.setAttribute("fotoPerfil", bandVO.getFotoPerfil());
-                session.setAttribute("nombre", bandVO.getNombre());
-                session.setAttribute("generos", bandVO.getGeneros());
-                if (emailL.equals(emailC)) {
+                //session.setAttribute("email", emailL);
+                //session.setAttribute("emailB", emailC);
+                //session.setAttribute("fotoPerfil", bandVO.getFotoPerfil());
+                //session.setAttribute("nombre", bandVO.getNombre());
+                //session.setAttribute("generos", bandVO.getGeneros());
+                /**if (emailL.equals(emailC)) {
                     session.setAttribute("home", "home_band_info.jsp");
                 } else {
                     session.setAttribute("home", "home_fan_concert.jsp");
-                }
-                response.sendRedirect("home_band_wall.jsp");
-            } else {
-                request.setAttribute("errores", errores);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home_band_wall.jsp");
-                dispatcher.forward(request, response);
-            }
-        } catch (ErrorBandException e) {
-            e.printStackTrace();
+                }*/
+            response.sendRedirect("home_band_wall.jsp?email=" + emailC);
+        } else {
+            request.setAttribute("errores", errores);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home_band_wall.jsp");
+            dispatcher.forward(request, response);
         }
     }
 

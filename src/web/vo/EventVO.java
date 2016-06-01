@@ -33,7 +33,7 @@ public class EventVO {
 		String res = "";
 		
 		for (int i = 0; i<fecha.length();i++){
-			if(fecha.charAt(i)!='-'){
+			if(fecha.charAt(i)!='-' && fecha.charAt(i)!='/'){
 				res += fecha.charAt(i);
 			}
 		}

@@ -20,7 +20,7 @@ public class UpdateBandServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         try {
-            ArrayList<String> errores = new ArrayList<>();
+            ArrayList<String> errores = new ArrayList<String>();
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
 
@@ -54,7 +54,7 @@ public class UpdateBandServlet extends HttpServlet {
             }
 
             if (errores.isEmpty()) {
-                ArrayList<String> generosArray = new ArrayList<>();
+                ArrayList<String> generosArray = new ArrayList<String>();
                 if (generos == null || generos.length == 0 ) {
                     generosArray = null;
                 } else {

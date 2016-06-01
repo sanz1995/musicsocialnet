@@ -1,6 +1,7 @@
 package web.servlet;
 
 import web.dao.EventDAO;
+import web.vo.EventVO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,18 +48,18 @@ public class CreateEventServlet extends HttpServlet{
             errores.add("fecha");
         }
 
-        if(fecha.contains("/")) {
+        /**if(fecha.contains("/")) {
             errores.add("fecha");
-        }
+        }*/
 
         if (errores.isEmpty()) {
             EventDAO eventDAO = EventDAO.getDAO();
-            eventDAO.crearEvento(nombre, banda, fecha, lugar, tiempo);
+            eventDAO.crearEvento(new EventVO(nombre, banda, fecha, lugar,"0", tiempo));
             request.setAttribute("errores", null);
             response.sendRedirect("home_band_event.jsp");
         } else {
-            request.setAttribute("nombre", nombre);
-            request.setAttribute("lugar", lugar);
+            //request.setAttribute("nombre", nombre);
+            //request.setAttribute("lugar", lugar);
             request.setAttribute("errores", errores);
             RequestDispatcher dispatcher = request.getRequestDispatcher("home_band_event.jsp");
             dispatcher.forward(request, response);

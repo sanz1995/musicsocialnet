@@ -20,7 +20,7 @@ public class UpdateFanServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         try {
-            ArrayList<String> errores = new ArrayList<>();
+            ArrayList<String> errores = new ArrayList<String>();
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
 
